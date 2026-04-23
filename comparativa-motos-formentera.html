@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comparativa Motos Formentera</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FDFAF5;
+    --cream-dark: #F4EFE5;
+    --cream-darker: #EDE5D4;
+    --blue: #1B4FFF;
+    --blue-light: rgba(27,79,255,0.07);
+    --blue-border: rgba(27,79,255,0.2);
+    --ink: #1A1A1A;
+    --ink-mid: #4A4A4A;
+    --ink-muted: #9A9A9A;
+    --border: rgba(26,26,26,0.1);
+    --border-med: rgba(26,26,26,0.15);
+    --green: #1A7A45;
+    --green-bg: rgba(26,122,69,0.07);
+    --green-border: rgba(26,122,69,0.2);
+    --red: #CC3333;
+    --red-bg: rgba(204,51,51,0.06);
+    --red-border: rgba(204,51,51,0.18);
+    --amber: #B06000;
+    --amber-bg: rgba(176,96,0,0.07);
+    --amber-border: rgba(176,96,0,0.2);
+  }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Poppins', sans-serif;
+  letter-spacing: -0.03em;
+    padding: 56px 44px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes barGrow { from { width: 0; } }
+
+  .reveal {
+    opacity: 0;
+    animation: fadeUp 0.6s cubic-bezier(0.22,1,0.36,1) forwards;
+    animation-play-state: paused;
+  }
+  .d1{animation-delay:.05s} .d2{animation-delay:.12s} .d3{animation-delay:.19s}
+  .d4{animation-delay:.26s} .d5{animation-delay:.33s} .d6{animation-delay:.40s}
+  .d7{animation-delay:.47s} .d8{animation-delay:.54s} .d9{animation-delay:.61s}
+
+  /* HEADER */
+  .header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 52px; padding-bottom: 36px;
+    border-bottom: 1.5px solid var(--border-med);
+  }
+  .brand-tag {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+    color: var(--blue); text-transform: uppercase; margin-bottom: 12px;
+  }
+  .header-title {
+    text-shadow: 0 4px 20px rgba(0,0,0,0.10);
+    font-size: 46px; font-weight: 700; letter-spacing: -0.04em;
+    line-height: 1; color: var(--ink);
+  }
+  .header-title span { color: var(--blue); }
+  .header-sub {
+    font-size: 13px; color: var(--ink-muted); margin-top: 10px;
+    font-weight: 300; letter-spacing: 0.02em;
+  }
+  .header-right { text-align: right; }
+  .header-right .badge-winner {
+    display: inline-block; background: var(--blue); color: #fff;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 5px 14px; border-radius: 99px; margin-bottom: 8px;
+  }
+  .header-right .chosen-name {
+    font-size: 22px; font-weight: 700; letter-spacing: -0.03em; color: var(--ink);
+    display: block;
+  }
+  .header-right .chosen-price {
+    font-size: 15px; font-weight: 400; color: var(--ink-muted); margin-top: 3px;
+  }
+
+  /* SECTION */
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+    color: var(--blue); text-transform: uppercase; margin-bottom: 16px;
+  }
+  .block { margin-bottom: 36px; }
+
+  .card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px 26px;
+  }
+  .lift {
+    transition: transform 0.22s cubic-bezier(0.22,1,0.36,1), box-shadow 0.22s ease;
+  }
+  .lift:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(26,26,26,0.09); }
+
+  /* 3-COLUMN MOTO GRID */
+  .moto-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px;
+  }
+  .moto-card {
+    background: var(--cream-dark); border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px 22px;
+    transition: transform 0.22s cubic-bezier(0.22,1,0.36,1), box-shadow 0.22s ease;
+    position: relative; overflow: hidden;
+  }
+  .moto-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(26,26,26,0.1); }
+  .moto-card.winner {
+    background: var(--blue-light); border: 2px solid var(--blue);
+  }
+  .moto-card .winner-ribbon {
+    position: absolute; top: 14px; right: -28px;
+    background: var(--blue); color: #fff;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 4px 36px;
+    transform: rotate(35deg);
+  }
+  .moto-card .mc-tag {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; margin-bottom: 10px;
+    color: var(--ink-muted);
+  }
+  .moto-card.winner .mc-tag { color: var(--blue); }
+  .moto-card .mc-name {
+    font-size: 19px; font-weight: 700; letter-spacing: -0.02em;
+    color: var(--ink); margin-bottom: 4px;
+  }
+  .moto-card .mc-cc {
+    font-size: 12px; color: var(--ink-muted); font-weight: 300; margin-bottom: 16px;
+  }
+  .moto-card .mc-price {
+    font-size: 26px; font-weight: 700; letter-spacing: -0.04em;
+    color: var(--ink); margin-bottom: 14px;
+  }
+  .moto-card.winner .mc-price { color: var(--blue); }
+  .mc-divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+  .mc-row {
+    display: flex; justify-content: space-between; align-items: center; padding: 4px 0;
+  }
+  .mc-row .k { font-size: 12px; color: var(--ink-muted); font-weight: 300; }
+  .mc-row .v { font-size: 13px; font-weight: 500; color: var(--ink); }
+  .mc-row .v.bad { color: var(--red); }
+  .mc-row .v.good { color: var(--green); }
+  .mc-features { margin-top: 14px; }
+  .mc-feat {
+    display: flex; align-items: flex-start; gap: 7px;
+    font-size: 12px; color: var(--ink-mid); font-weight: 300;
+    line-height: 1.5; margin-bottom: 5px;
+  }
+  .mc-feat-dot { width: 5px; height: 5px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+  .dot-green { background: var(--green); }
+  .dot-red { background: var(--red); }
+  .dot-blue { background: var(--blue); }
+
+  /* COMPARATIVA DE BARRAS */
+  .compare-item { margin-bottom: 20px; }
+  .compare-item:last-child { margin-bottom: 0; }
+  .compare-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .compare-name { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .compare-val { font-size: 15px; font-weight: 700; letter-spacing: -0.02em; }
+  .bar-track { height: 9px; background: var(--cream-darker); border-radius: 99px; overflow: hidden; }
+  .bar-fill {
+    height: 100%; border-radius: 99px; width: 0;
+    transition: width 1.3s cubic-bezier(0.22,1,0.36,1);
+  }
+  .bar-blue { background: var(--blue); }
+  .bar-amber { background: var(--amber); }
+  .bar-red { background: var(--red); }
+  .compare-sub { font-size: 12px; color: var(--ink-muted); margin-top: 5px; font-weight: 300; }
+
+  /* FINANCIACIÓN TABS */
+  .tab-bar { display: flex; gap: 8px; margin-bottom: 20px; }
+  .tab-btn {
+    padding: 8px 18px; border-radius: 99px; font-size: 13px; font-weight: 500;
+    border: 1px solid var(--border); background: var(--cream-dark);
+    color: var(--ink-mid); cursor: pointer; font-family: 'Poppins', sans-serif;
+  letter-spacing: -0.03em;
+    transition: all 0.18s ease;
+  }
+  .tab-btn:hover { border-color: var(--blue); color: var(--blue); }
+  .tab-btn.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .fin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .fin-card {
+    background: var(--cream-dark); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 22px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .fin-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,26,26,0.07); }
+  .fin-card.featured { background: var(--blue-light); border-color: var(--blue-border); }
+  .fin-card .period {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+    color: var(--ink-muted); text-transform: uppercase; margin-bottom: 16px;
+  }
+  .fin-card.featured .period { color: var(--blue); }
+  .fin-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 7px 0; border-bottom: 1px solid rgba(26,26,26,0.05);
+  }
+  .fin-row:last-of-type { border-bottom: none; }
+  .fin-row .k { font-size: 13px; color: var(--ink-muted); font-weight: 300; }
+  .fin-row .v { font-size: 14px; font-weight: 600; color: var(--ink); }
+  .fin-row .v.bad { color: var(--red); }
+  .fin-row .v.good { color: var(--green); }
+  .fin-note {
+    margin-top: 14px; padding: 11px 13px;
+    background: rgba(27,79,255,0.07); border-radius: 8px;
+    border: 1px solid var(--blue-border);
+    font-size: 12px; color: var(--blue); line-height: 1.65; font-weight: 400;
+  }
+
+  /* POR QUÉ PCX */
+  .verdict-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .verdict-item {
+    border-radius: 12px; padding: 18px 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .verdict-item:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,26,26,0.07); }
+  .verdict-item.yes { background: var(--green-bg); border: 1px solid var(--green-border); }
+  .verdict-item.no  { background: var(--red-bg);   border: 1px solid var(--red-border); }
+  .verdict-item .vtitle { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+  .verdict-item.yes .vtitle { color: var(--green); }
+  .verdict-item.no  .vtitle { color: var(--red); }
+  .verdict-item .vtext { font-size: 13px; color: var(--ink-mid); line-height: 1.6; font-weight: 300; }
+
+  /* RECOMPRA */
+  .recompra-row {
+    display: flex; align-items: center; gap: 20px;
+    padding: 18px 22px; background: var(--cream-dark);
+    border: 1px solid var(--border); border-radius: 12px; margin-bottom: 8px;
+    transition: transform 0.2s ease;
+  }
+  .recompra-row:hover { transform: translateY(-2px); }
+  .recompra-row .rval { font-size: 26px; font-weight: 700; letter-spacing: -0.04em; color: var(--ink); white-space: nowrap; }
+  .recompra-row .rdesc { font-size: 13px; color: var(--ink-mid); line-height: 1.55; font-weight: 300; }
+  .recompra-divider { font-size: 10px; color: var(--ink-muted); text-align: center; padding: 4px 0; letter-spacing: 0.06em; }
+
+  .note {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 16px 18px; border-radius: 10px;
+    background: var(--blue-light); border: 1px solid var(--blue-border); margin-top: 16px;
+  }
+  .note-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); margin-top: 5px; flex-shrink: 0; }
+  .note-text { font-size: 13px; color: var(--ink-mid); line-height: 1.65; font-weight: 300; }
+  .note-text strong { color: var(--blue); font-weight: 600; }
+
+  /* MAINT */
+  .maint-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .maint-col { padding-right: 24px; }
+  .maint-col + .maint-col { padding: 0 0 0 24px; border-left: 1px solid var(--border); }
+  .maint-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: var(--ink-muted); text-transform: uppercase; margin-bottom: 10px; }
+  .maint-text { font-size: 14px; color: var(--ink-mid); line-height: 1.7; font-weight: 300; }
+
+  /* SAVING PILL */
+  .saving-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--green-bg); border: 1px solid var(--green-border);
+    border-radius: 99px; padding: 7px 16px;
+    font-size: 13px; font-weight: 500; color: var(--green); margin-top: 14px;
+  }
+</style>
+</head>
+<body>
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;background:rgba(253,250,245,0.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(10,10,10,0.08);">
+  <a href="index.html" style="font-family:Poppins,sans-serif;font-weight:500;font-size:15px;letter-spacing:-0.06em;text-transform:uppercase;color:#0A0A0A;text-decoration:none;">Viajes <span style="color:#1B4FFF">SANBO</span></a>
+  <a href="index.html" style="font-size:13px;color:#6B6B6B;text-decoration:none;display:flex;align-items:center;gap:6px;">← Volver</a>
+</nav>
+<div style="height:64px;"></div>
+
+<!-- HEADER -->
+<div class="header reveal d1">
+  <div>
+    <div class="brand-tag">Sanbo — Comparativa motos</div>
+    <h1 class="header-title">Motos<br><span>Formentera</span></h1>
+    <p class="header-sub">Honda Vision 110 · SHM 125 · Honda PCX 125</p>
+  </div>
+  <div class="header-right">
+    <span class="badge-winner">Elegida</span>
+    <span class="chosen-name">Honda PCX 125</span>
+    <p class="chosen-price">3.491,78 € al contado</p>
+  </div>
+</div>
+
+
+<!-- LAS 3 MOTOS -->
+<div class="block reveal d2">
+  <div class="section-label">Las tres opciones</div>
+  <div class="moto-grid">
+
+    <!-- VISION -->
+    <div class="moto-card">
+      <div class="mc-tag">Opción 1</div>
+      <div class="mc-name">Honda Vision</div>
+      <div class="mc-cc">110 cc</div>
+      <div class="mc-price">2.549 €</div>
+      <hr class="mc-divider">
+      <div class="mc-row"><span class="k">Fin. 24m (entrada 400€)</span><span class="v bad">2.776 €</span></div>
+      <div class="mc-row"><span class="k">Sobrecoste 24m</span><span class="v bad">+276 €</span></div>
+      <div class="mc-row"><span class="k">Fin. 36m (entrada 400€)</span><span class="v bad">2.864 €</span></div>
+      <div class="mc-row"><span class="k">Sobrecoste 36m</span><span class="v bad">+364 €</span></div>
+      <div class="mc-features">
+        <div class="mc-feat"><div class="mc-feat-dot dot-red"></div>Sin maletero bajo asiento</div>
+        <div class="mc-feat"><div class="mc-feat-dot dot-red"></div>Menor valor de reventa</div>
+        <div class="mc-feat"><div class="mc-feat-dot dot-green"></div>Precio más bajo</div>
+      </div>
+    </div>
+
+    <!-- SHM -->
+    <div class="moto-card">
+      <div class="mc-tag">Opción 2</div>
+      <div class="mc-name">SHM</div>
+      <div class="mc-cc">125 cc</div>
+      <div class="mc-price">3.000 €</div>
+      <hr class="mc-divider">
+      <div class="mc-row"><span class="k">Fin. 24m (entrada 450€)</span><span class="v bad">3.278 €</span></div>
+      <div class="mc-row"><span class="k">Sobrecoste 24m</span><span class="v bad">+278 €</span></div>
+      <div class="mc-row"><span class="k">Fin. 36m (entrada 450€)</span><span class="v bad">3.374 €</span></div>
+      <div class="mc-row"><span class="k">Sobrecoste 36m</span><span class="v bad">+374 €</span></div>
+      <div class="mc-features">
+        <div class="mc-feat"><div class="mc-feat-dot dot-red"></div>Marca menos reconocida</div>
+        <div class="mc-feat"><div class="mc-feat-dot dot-red"></div>Peor reventa que Honda</div>
+        <div class="mc-feat"><div class="mc-feat-dot dot-green"></div>125 cc — más potencia</div>
+      </div>
+    </div>
+
+    <!-- PCX — WINNER -->
+    <div class="moto-card winner">
+      <div class="winner-ribbon">Elegida</div>
+      <div class="mc-tag">Opción 3</div>
+      <div class="mc-name">Honda PCX</div>
+      <div class="mc-cc">125 cc · 2025</div>
+      <div class="mc-price">3.491,78 €</div>
+      <hr class="mc-divider">
+      <div class="mc-row"><span class="k">Fin. 36m (entrada 561€)</span><span class="v bad">4.241,45 €</span></div>
+      <div class="mc-row"><span class="k">Sobrecoste financiación</span><span class="v bad">+499,67 €</span></div>
+      <div class="mc-row"><span class="k">Honda Plus incluido</span><span class="v good">✓ 250 €</span></div>
+      <div class="mc-row"><span class="k">Matriculación</span><span class="v good">✓ gratis</span></div>
+      <div class="mc-features">
+        <div class="mc-feat"><div class="mc-feat-dot dot-blue"></div>Maletero bajo asiento (casco integral)</div>
+        <div class="mc-feat"><div class="mc-feat-dot dot-blue"></div>Mayor valor de reventa</div>
+        <div class="mc-feat"><div class="mc-feat-dot dot-blue"></div>125 cc + garantía 6 años</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- COMPARATIVA VISUAL -->
+<div class="block reveal d3">
+  <div class="section-label">Comparativa — precio al contado</div>
+  <div class="card">
+    <div class="compare-item">
+      <div class="compare-header">
+        <span class="compare-name">Honda Vision 110</span>
+        <span class="compare-val" style="color: var(--ink-mid);">2.549 €</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill bar-amber" data-pct="60"></div></div>
+      <div class="compare-sub">La más barata. Sin maletero, menor reventa.</div>
+    </div>
+    <div class="compare-item">
+      <div class="compare-header">
+        <span class="compare-name">SHM 125</span>
+        <span class="compare-val" style="color: var(--ink-mid);">3.000 €</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill bar-amber" data-pct="71"></div></div>
+      <div class="compare-sub">Precio intermedio. Marca menos reconocida, peor reventa.</div>
+    </div>
+    <div class="compare-item">
+      <div class="compare-header">
+        <span class="compare-name">Honda PCX 125 <span style="font-size:11px; color:var(--blue); font-weight:600;">✓ Elegida</span></span>
+        <span class="compare-val" style="color:var(--blue);">3.491,78 €</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill bar-blue" data-pct="82"></div></div>
+      <div class="compare-sub">Incluye Honda Plus (250 €), matriculación y Mapit. Mejor reventa.</div>
+    </div>
+    <div class="saving-pill">✓ PCX lleva 692,78 € en extras incluidos — la diferencia real es menor de lo que parece</div>
+  </div>
+</div>
+
+
+<!-- FINANCIACIÓN PCX — TABS -->
+<div class="block reveal d4">
+  <div class="section-label">Financiación detallada — Honda PCX 125</div>
+  <div class="card">
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('pcx')">Honda PCX 125</button>
+      <button class="tab-btn" onclick="switchTab('vision')">Honda Vision 110</button>
+      <button class="tab-btn" onclick="switchTab('shm')">SHM 125</button>
+    </div>
+
+    <!-- PCX -->
+    <div class="tab-panel active" id="tab-pcx">
+      <div class="fin-grid">
+        <div class="fin-card">
+          <div class="period">Financiación · 36 meses</div>
+          <div class="fin-row"><span class="k">Entrada</span><span class="v">561,27 €</span></div>
+          <div class="fin-row"><span class="k">Cuota mensual</span><span class="v">53,63 €</span></div>
+          <div class="fin-row"><span class="k">Cuota final</span><span class="v">1.750,00 €</span></div>
+          <div class="fin-row"><span class="k">TAE</span><span class="v">6,73 %</span></div>
+          <div class="fin-row"><span class="k">Total a plazos</span><span class="v bad">4.241,45 €</span></div>
+          <div class="fin-row"><span class="k">Sobrecoste</span><span class="v bad">+499,67 €</span></div>
+        </div>
+        <div class="fin-card featured">
+          <div class="period">Pago al contado · recomendado</div>
+          <div class="fin-row"><span class="k">Precio total</span><span class="v">3.491,78 €</span></div>
+          <div class="fin-row"><span class="k">Sobrecoste</span><span class="v good">0 €</span></div>
+          <div class="fin-row"><span class="k">Sin cuota final</span><span class="v good">✓</span></div>
+          <div class="fin-row"><span class="k">Ahorro vs financiar</span><span class="v good">499,67 €</span></div>
+          <div class="fin-note">Pagar ~500 € de intereses por una moto que vendes en 5 meses no tiene ningún sentido financiero.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VISION -->
+    <div class="tab-panel" id="tab-vision">
+      <div class="fin-grid">
+        <div class="fin-card">
+          <div class="period">Financiación · 24 meses (entrada 400 €)</div>
+          <div class="fin-row"><span class="k">Cuota mensual</span><span class="v">99,00 €</span></div>
+          <div class="fin-row"><span class="k">Total cuotas</span><span class="v">2.376,00 €</span></div>
+          <div class="fin-row"><span class="k">Total pagado</span><span class="v bad">2.776,00 €</span></div>
+          <div class="fin-row"><span class="k">Sobrecoste</span><span class="v bad">+276 €</span></div>
+        </div>
+        <div class="fin-card">
+          <div class="period">Financiación · 36 meses (entrada 400 €)</div>
+          <div class="fin-row"><span class="k">Cuota mensual</span><span class="v">68,45 €</span></div>
+          <div class="fin-row"><span class="k">Total cuotas</span><span class="v">2.464,20 €</span></div>
+          <div class="fin-row"><span class="k">Total pagado</span><span class="v bad">2.864,20 €</span></div>
+          <div class="fin-row"><span class="k">Sobrecoste</span><span class="v bad">+364 €</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SHM -->
+    <div class="tab-panel" id="tab-shm">
+      <div class="fin-grid">
+        <div class="fin-card">
+          <div class="period">Financiación · 24 meses (entrada 450 €)</div>
+          <div class="fin-row"><span class="k">Cuota mensual</span><span class="v">117,85 €</span></div>
+          <div class="fin-row"><span class="k">Total cuotas</span><span class="v">2.828,40 €</span></div>
+          <div class="fin-row"><span class="k">Total pagado</span><span class="v bad">3.278,40 €</span></div>
+          <div class="fin-row"><span class="k">Sobrecoste</span><span class="v bad">+278 €</span></div>
+        </div>
+        <div class="fin-card">
+          <div class="period">Financiación · 36 meses (entrada 450 €)</div>
+          <div class="fin-row"><span class="k">Cuota mensual</span><span class="v">81,22 €</span></div>
+          <div class="fin-row"><span class="k">Total cuotas</span><span class="v">2.923,92 €</span></div>
+          <div class="fin-row"><span class="k">Total pagado</span><span class="v bad">3.373,92 €</span></div>
+          <div class="fin-row"><span class="k">Sobrecoste</span><span class="v bad">+374 €</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- POR QUÉ PCX -->
+<div class="block reveal d5">
+  <div class="section-label">Por qué la PCX frente a las otras</div>
+  <div class="verdict-grid">
+    <div class="verdict-item yes"><div class="vtitle">✓ Casco en el maletero</div><div class="vtext">Baúl bajo asiento para casco integral. La Vision 110 y la SHM no lo tienen. En isla es clave.</div></div>
+    <div class="verdict-item yes"><div class="vtitle">✓ Mayor valor de reventa</div><div class="vtext">La PCX 125 se vende mejor de segunda mano. Honda reconocida, modelo premium, alta demanda en Formentera.</div></div>
+    <div class="verdict-item yes"><div class="vtitle">✓ 125 cc — más potencia</div><div class="vtext">Frente a la Vision 110. Diferencia real en curvas y subidas de la isla.</div></div>
+    <div class="verdict-item no"><div class="vtitle">✗ Precio más alto</div><div class="vtext">942 € más que la Vision al contado. Pero incluye extras que las otras no traen: garantía 6 años, Mapit, matriculación.</div></div>
+  </div>
+</div>
+
+
+<!-- RECOMPRA -->
+<div class="block reveal d6">
+  <div class="section-label">Escenario de reventa tras 5 meses</div>
+  <div class="recompra-row"><div class="rval">3.491,78 €</div><div class="rdesc">Precio de compra al contado (sin seguro)</div></div>
+  <div class="recompra-divider">— escenario de venta —</div>
+  <div class="recompra-row" style="border-color:var(--green-border); background:var(--green-bg);">
+    <div class="rval" style="color:var(--green);">2.500–3.200 €</div>
+    <div class="rdesc">Reventa por cuenta propia · Wallapop / comunidad local<br><span style="color:var(--ink-muted);font-size:12px;">Depreciación baja: poco uso + demanda alta en isla</span></div>
+  </div>
+  <div class="recompra-divider">— vs concesionario —</div>
+  <div class="recompra-row"><div class="rval" style="color:var(--ink-muted);">1.800–2.000 €</div><div class="rdesc">Recompra por Honda Ibiza · más cómodo pero peor precio</div></div>
+  <div class="note">
+    <div class="note-dot"></div>
+    <div class="note-text"><strong>Recomendación:</strong> Vende por tu cuenta. La demanda en Formentera/Ibiza es alta y la PCX se reconoce. El concesionario te quitará entre 500 y 1.000 € respecto al precio de mercado.</div>
+  </div>
+</div>
+
+
+<!-- MANTENIMIENTO -->
+<div class="block reveal d7" style="margin-bottom:0;">
+  <div class="section-label">Mantenimiento en isla</div>
+  <div class="card lift">
+    <div class="maint-grid">
+      <div class="maint-col">
+        <div class="maint-label">Salitre</div>
+        <p class="maint-text">Lavar con frecuencia. La sal acelera la corrosión del chasis, tornillería y transmisión. En Formentera el ambiente marino es constante.</p>
+      </div>
+      <div class="maint-col">
+        <div class="maint-label">Honda Plus</div>
+        <p class="maint-text">Chequeo anual gratuito incluido. Aprovéchalo antes de vender para justificar el precio al comprador.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // IntersectionObserver — reveal on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.style.animationPlayState = 'running';
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => {
+    el.style.animationPlayState = 'paused';
+    observer.observe(el);
+  });
+
+  // Animate bars when card enters view
+  const barObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.bar-fill').forEach(bar => {
+          bar.style.width = bar.dataset.pct + '%';
+        });
+        barObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.card').forEach(c => barObserver.observe(c));
+
+  // Tab switching
+  function switchTab(id) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+</script>
+</body>
+</html>

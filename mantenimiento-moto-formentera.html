@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mantenimiento Moto — Formentera</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FDFAF5;
+    --cream-dark: #F4EFE5;
+    --cream-darker: #EDE5D4;
+    --blue: #1B4FFF;
+    --blue-light: rgba(27,79,255,0.07);
+    --blue-mid: rgba(27,79,255,0.14);
+    --blue-border: rgba(27,79,255,0.22);
+    --ink: #1A1A1A;
+    --ink-mid: #4A4A4A;
+    --ink-muted: #9A9A9A;
+    --border: rgba(26,26,26,0.09);
+    --border-med: rgba(26,26,26,0.14);
+    --green: #1A7A45;
+    --green-bg: rgba(26,122,69,0.07);
+    --green-border: rgba(26,122,69,0.2);
+    --red: #CC3333;
+    --red-bg: rgba(204,51,51,0.06);
+    --amber: #B06000;
+    --amber-bg: rgba(176,96,0,0.07);
+    --amber-border: rgba(176,96,0,0.2);
+  }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Poppins', sans-serif;
+  letter-spacing: -0.03em;
+    padding: 56px 44px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes barGrow { from { width: 0; } }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-16px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) forwards;
+    animation-play-state: paused;
+  }
+  .d1{animation-delay:.04s} .d2{animation-delay:.12s} .d3{animation-delay:.20s}
+  .d4{animation-delay:.28s} .d5{animation-delay:.36s} .d6{animation-delay:.44s}
+  .d7{animation-delay:.52s} .d8{animation-delay:.60s} .d9{animation-delay:.68s}
+
+  /* HEADER */
+  .header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 52px; padding-bottom: 36px;
+    border-bottom: 1.5px solid var(--border-med);
+  }
+  .brand-tag {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+    color: var(--blue); text-transform: uppercase; margin-bottom: 12px;
+  }
+  .header-title {
+    text-shadow: 0 4px 20px rgba(0,0,0,0.10);
+    font-size: 46px; font-weight: 700; letter-spacing: -0.04em;
+    line-height: 1; color: var(--ink);
+  }
+  .header-title span { color: var(--blue); }
+  .header-sub {
+    font-size: 13px; color: var(--ink-muted); margin-top: 10px;
+    font-weight: 300; letter-spacing: 0.02em;
+  }
+  .header-right { text-align: right; }
+  .header-badge {
+    display: inline-block; background: var(--blue); color: #fff;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 5px 14px; border-radius: 99px; margin-bottom: 8px;
+  }
+  .header-model {
+    font-size: 22px; font-weight: 700; letter-spacing: -0.03em;
+    color: var(--ink); display: block;
+  }
+  .header-season {
+    font-size: 13px; font-weight: 300; color: var(--ink-muted); margin-top: 3px;
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+    color: var(--blue); text-transform: uppercase; margin-bottom: 16px;
+  }
+  .block { margin-bottom: 40px; }
+
+  /* CARDS */
+  .card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px 26px;
+  }
+  .lift {
+    transition: transform 0.22s cubic-bezier(0.22,1,0.36,1), box-shadow 0.22s ease;
+  }
+  .lift:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(26,26,26,0.09); }
+
+  /* TRIÁNGULO DE PELIGRO */
+  .danger-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px;
+  }
+  .danger-card {
+    border-radius: 14px; padding: 22px 20px; position: relative; overflow: hidden;
+    transition: transform 0.22s cubic-bezier(0.22,1,0.36,1), box-shadow 0.22s ease;
+    cursor: default;
+  }
+  .danger-card:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(26,26,26,0.12); }
+  .danger-card.salt {
+    background: var(--blue); color: #fff;
+  }
+  .danger-card.dust {
+    background: var(--cream-dark); border: 1px solid var(--border-med);
+  }
+  .danger-card.sun {
+    background: var(--amber-bg); border: 1px solid var(--amber-border);
+  }
+  .danger-card::after {
+    content: '';
+    position: absolute; right: -30px; top: -30px;
+    width: 100px; height: 100px; border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+  .dc-num {
+    font-size: 42px; font-weight: 900; letter-spacing: -0.05em;
+    line-height: 1; margin-bottom: 10px;
+  }
+  .danger-card.salt .dc-num { color: rgba(255,255,255,0.18); }
+  .danger-card.dust .dc-num { color: rgba(26,26,26,0.08); }
+  .danger-card.sun  .dc-num { color: rgba(176,96,0,0.12); }
+  .dc-title {
+    font-size: 16px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 8px;
+  }
+  .danger-card.salt .dc-title { color: #fff; }
+  .danger-card.dust .dc-title { color: var(--ink); }
+  .danger-card.sun  .dc-title { color: var(--amber); }
+  .dc-text {
+    font-size: 12px; line-height: 1.6; font-weight: 300;
+  }
+  .danger-card.salt .dc-text { color: rgba(255,255,255,0.7); }
+  .danger-card.dust .dc-text { color: var(--ink-mid); }
+  .danger-card.sun  .dc-text { color: var(--ink-mid); }
+
+  /* PROTOCOLO — LEVELS */
+  .level-block {
+    border: 1px solid var(--border); border-radius: 16px;
+    overflow: hidden; margin-bottom: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .level-block:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(26,26,26,0.08); }
+  .level-block:last-child { margin-bottom: 0; }
+
+  .level-header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 20px;
+  }
+  .level-header.lh1 { background: var(--blue); }
+  .level-header.lh2 { background: var(--cream-dark); border-bottom: 1px solid var(--border); }
+  .level-header.lh3 { background: var(--cream-darker); border-bottom: 1px solid var(--border); }
+
+  .level-badge {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.09em;
+    padding: 3px 10px; border-radius: 99px; white-space: nowrap; text-transform: uppercase;
+  }
+  .lh1 .level-badge { background: rgba(255,255,255,0.18); color: #fff; }
+  .lh2 .level-badge { background: var(--blue-mid); color: var(--blue); }
+  .lh3 .level-badge { background: rgba(26,26,26,0.08); color: var(--ink-mid); }
+
+  .level-title { font-size: 15px; font-weight: 700; }
+  .lh1 .level-title { color: #fff; }
+  .lh2 .level-title { color: var(--ink); }
+  .lh3 .level-title { color: var(--ink); }
+
+  .level-freq {
+    margin-left: auto; font-size: 11px; font-weight: 400;
+  }
+  .lh1 .level-freq { color: rgba(255,255,255,0.55); }
+  .lh2 .level-freq { color: var(--ink-muted); }
+  .lh3 .level-freq { color: var(--ink-muted); }
+
+  .level-items {
+    background: #fff; padding: 18px 20px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .level-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    opacity: 0;
+    animation: slideIn 0.5s cubic-bezier(0.22,1,0.36,1) forwards;
+    animation-play-state: paused;
+  }
+  .li-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--blue); margin-top: 6px; flex-shrink: 0;
+  }
+  .li-content {}
+  .li-title { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+  .li-text  { font-size: 12px; color: var(--ink-mid); line-height: 1.55; font-weight: 300; }
+
+  /* CAMINOS DE TIERRA */
+  .terrain-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  }
+  .terrain-item {
+    background: var(--cream-dark); border-radius: 12px;
+    padding: 16px 18px; border-left: 3px solid var(--blue);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .terrain-item:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,26,26,0.07); }
+  .terrain-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+    color: var(--blue); text-transform: uppercase; margin-bottom: 6px;
+  }
+  .terrain-text { font-size: 13px; color: var(--ink-mid); line-height: 1.6; font-weight: 300; }
+  .terrain-warn {
+    font-size: 11px; color: var(--red); font-weight: 500; margin-top: 4px;
+  }
+
+  /* INDICADORES VISUALES */
+  .indicator-row {
+    display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px;
+  }
+  .indicator-card {
+    background: var(--cream-dark); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px 14px; text-align: center;
+    transition: transform 0.2s ease;
+  }
+  .indicator-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26,26,26,0.08); }
+  .ind-num {
+    font-size: 32px; font-weight: 900; letter-spacing: -0.05em;
+    color: var(--blue); display: block; line-height: 1;
+  }
+  .ind-unit { font-size: 11px; font-weight: 500; color: var(--blue); }
+  .ind-label { font-size: 11px; color: var(--ink-muted); font-weight: 300; margin-top: 6px; line-height: 1.4; }
+
+  /* BAR COMPARATIVA */
+  .compare-item { margin-bottom: 20px; }
+  .compare-item:last-child { margin-bottom: 0; }
+  .compare-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .compare-name { font-size: 13px; font-weight: 500; color: var(--ink); }
+  .compare-val { font-size: 14px; font-weight: 700; letter-spacing: -0.02em; }
+  .bar-track { height: 8px; background: var(--cream-darker); border-radius: 99px; overflow: hidden; }
+  .bar-fill {
+    height: 100%; border-radius: 99px; width: 0;
+    transition: width 1.4s cubic-bezier(0.22,1,0.36,1);
+  }
+  .bar-blue  { background: var(--blue); }
+  .bar-amber { background: var(--amber); }
+  .bar-red   { background: var(--red); }
+  .bar-green { background: var(--green); }
+  .compare-sub { font-size: 11px; color: var(--ink-muted); margin-top: 5px; font-weight: 300; }
+
+  /* TIPS INSIDER */
+  .tips-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;
+  }
+  .tip-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 14px; padding: 20px;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+  }
+  .tip-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(26,26,26,0.09); }
+  .tip-icon {
+    font-size: 26px; display: block; margin-bottom: 12px; line-height: 1;
+  }
+  .tip-title { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 7px; }
+  .tip-text  { font-size: 12px; color: var(--ink-mid); line-height: 1.6; font-weight: 300; }
+
+  /* NOTA / PILL */
+  .note {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 14px 18px; border-radius: 10px;
+    background: var(--blue-light); border: 1px solid var(--blue-border); margin-top: 16px;
+  }
+  .note-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--blue); margin-top: 5px; flex-shrink: 0;
+  }
+  .note-text { font-size: 13px; color: var(--ink-mid); line-height: 1.65; font-weight: 300; }
+  .note-text strong { color: var(--blue); font-weight: 600; }
+
+  .saving-pill {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--blue-light); border: 1px solid var(--blue-border);
+    border-radius: 99px; padding: 7px 16px;
+    font-size: 12px; font-weight: 500; color: var(--blue); margin-top: 14px;
+  }
+
+  /* FOOTER */
+  .footer {
+    border-top: 1.5px solid var(--border-med); padding-top: 28px; margin-top: 8px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-left { font-size: 12px; color: var(--ink-muted); font-weight: 300; }
+  .footer-brand {
+    font-size: 14px; font-weight: 700; letter-spacing: 0.1em;
+    color: var(--blue); text-transform: uppercase;
+  }
+</style>
+</head>
+<body>
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;background:rgba(253,250,245,0.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(10,10,10,0.08);">
+  <a href="index.html" style="font-family:Poppins,sans-serif;font-weight:500;font-size:15px;letter-spacing:-0.06em;text-transform:uppercase;color:#0A0A0A;text-decoration:none;">Viajes <span style="color:#1B4FFF">SANBO</span></a>
+  <a href="index.html" style="font-size:13px;color:#6B6B6B;text-decoration:none;display:flex;align-items:center;gap:6px;">← Volver</a>
+</nav>
+<div style="height:64px;"></div>
+
+<!-- HEADER -->
+<div class="header reveal d1">
+  <div>
+    <div class="brand-tag">Sanbo — Guía de mantenimiento</div>
+    <h1 class="header-title">Moto en<br><span>Formentera</span></h1>
+    <p class="header-sub">Honda PCX 125 · Mayo — Septiembre 2025</p>
+  </div>
+  <div class="header-right">
+    <span class="header-badge">Guía completa</span>
+    <span class="header-model">PCX 125</span>
+    <p class="header-season">Temporada de 5 meses · Baleares</p>
+  </div>
+</div>
+
+
+<!-- INDICADORES CLAVE -->
+<div class="block reveal d2">
+  <div class="section-label">Intervalos de mantenimiento</div>
+  <div class="indicator-row">
+    <div class="indicator-card">
+      <span class="ind-num">7</span>
+      <span class="ind-unit">días</span>
+      <div class="ind-label">Manguerazo agua dulce</div>
+    </div>
+    <div class="indicator-card">
+      <span class="ind-num">15</span>
+      <span class="ind-unit">días</span>
+      <div class="ind-label">Presión de neumáticos</div>
+    </div>
+    <div class="indicator-card">
+      <span class="ind-num">30</span>
+      <span class="ind-unit">días</span>
+      <div class="ind-label">Filtros + variador + plásticos</div>
+    </div>
+    <div class="indicator-card">
+      <span class="ind-num">20</span>
+      <span class="ind-unit">km/h</span>
+      <div class="ind-label">Velocidad máx. en caminos</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- TRIÁNGULO DE PELIGRO -->
+<div class="block reveal d3">
+  <div class="section-label">El triángulo de peligro en isla</div>
+  <div class="danger-grid">
+    <div class="danger-card salt">
+      <div class="dc-num">01</div>
+      <div class="dc-title">Salitre</div>
+      <div class="dc-text">Corroe metales, tornillería y bloquea cerraduras. El ambiente marino en Formentera es constante durante toda la temporada.</div>
+    </div>
+    <div class="danger-card dust">
+      <div class="dc-num">02</div>
+      <div class="dc-title">Polvo blanco</div>
+      <div class="dc-text">Sedimento extremadamente fino. Obstruye filtros de aire y ensucia la transmisión. Especialmente agresivo en las pistas de las calas.</div>
+    </div>
+    <div class="danger-card sun">
+      <div class="dc-num">03</div>
+      <div class="dc-title">Sol UV</div>
+      <div class="dc-text">Quema el tapizado del asiento y vuelve blanquecinos los plásticos negros. El verano balear tiene una radiación UV muy alta.</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- PROTOCOLO MANTENIMIENTO -->
+<div class="block reveal d4">
+  <div class="section-label">Protocolo de mantenimiento — por prioridad</div>
+
+  <!-- NIVEL 1 -->
+  <div class="level-block">
+    <div class="level-header lh1">
+      <span class="level-badge">Nivel 1 · Crítico</span>
+      <span class="level-title">Protección diaria</span>
+      <span class="level-freq">Cada día / cada semana</span>
+    </div>
+    <div class="level-items">
+      <div class="level-item">
+        <div class="li-dot"></div>
+        <div class="li-content">
+          <div class="li-title">Funda de moto</div>
+          <div class="li-text">Si duerme en la calle, imprescindible. Protege del rocío salino nocturno y del sol directo que degrada todos los componentes. Sin funda, una temporada en Formentera envejece la moto dos años.</div>
+        </div>
+      </div>
+      <div class="level-item">
+        <div class="li-dot"></div>
+        <div class="li-content">
+          <div class="li-title">Lavado con agua dulce · 1 vez por semana</div>
+          <div class="li-text">Manguerazo rápido que elimina el salitre acumulado. Siempre con el motor frío. El agua fría sobre metal muy caliente puede causar microfisuras o dañar el acabado superficial.</div>
+        </div>
+      </div>
+      <div class="level-item">
+        <div class="li-dot"></div>
+        <div class="li-content">
+          <div class="li-title">Caballete central siempre</div>
+          <div class="li-text">El asfalto de Formentera se ablanda con el calor extremo del verano. La pata lateral es inestable tanto en asfalto reblandecido como en los arcenes de tierra. El caballete central distribuye el peso y evita que la moto caiga.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NIVEL 2 -->
+  <div class="level-block">
+    <div class="level-header lh2">
+      <span class="level-badge">Nivel 2</span>
+      <span class="level-title">Cuidado mecánico</span>
+      <span class="level-freq">Mensual · cada 30 días</span>
+    </div>
+    <div class="level-items">
+      <div class="level-item">
+        <div class="li-dot"></div>
+        <div class="li-content">
+          <div class="li-title">Filtros de aire y variador</div>
+          <div class="li-text">La PCX aspira mucho polvo en las pistas que van a las calas. Revisa o sopla los filtros cada 30 días para evitar que la correa de transmisión se sobrecaliente. El polvo blanco de Formentera es especialmente fino y penetrante.</div>
+        </div>
+      </div>
+      <div class="level-item">
+        <div class="li-dot"></div>
+        <div class="li-content">
+          <div class="li-title">Hidratación de plásticos negros</div>
+          <div class="li-text">Aplica un renovador con protección UV en los plásticos negros del contraescudo y plataforma. Sin tratamiento, el sol los vuelve grisáceos y quebradizos en pocas semanas de verano balear.</div>
+        </div>
+      </div>
+      <div class="level-item">
+        <div class="li-dot"></div>
+        <div class="li-content">
+          <div class="li-title">Lubricación de bombines</div>
+          <div class="li-text">Spray de grafito o aceite multiusos en la cerradura de contacto y el tapón de gasolina. El salitre puede bloquearlos y convertir una tarea de 2 segundos en un problema real.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NIVEL 3 -->
+  <div class="level-block">
+    <div class="level-header lh3">
+      <span class="level-badge">Nivel 3</span>
+      <span class="level-title">Seguridad y rodaje</span>
+      <span class="level-freq">Quincenal · cada 15 días</span>
+    </div>
+    <div class="level-items">
+      <div class="level-item">
+        <div class="li-dot"></div>
+        <div class="li-content">
+          <div class="li-title">Presión de neumáticos</div>
+          <div class="li-text">El calor extremo del verano de Baleares altera la presión constantemente. Afecta a la estabilidad, al consumo y al desgaste del neumático. Revisar cada 15 días como mínimo.</div>
+        </div>
+      </div>
+      <div class="level-item">
+        <div class="li-dot"></div>
+        <div class="li-content">
+          <div class="li-title">Protección antirrobo</div>
+          <div class="li-text">En zonas concurridas como Es Pujols, usa un candado de disco con alarma. Te avisará si alguien golpea o intenta mover la moto al aparcar la suya al lado, que es el escenario más habitual en verano.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- URGENCIA — BARRAS VISUALES -->
+<div class="block reveal d5">
+  <div class="section-label">Nivel de urgencia por amenaza</div>
+  <div class="card lift">
+    <div class="compare-item">
+      <div class="compare-header">
+        <span class="compare-name">Salitre — corrosión progresiva</span>
+        <span class="compare-val" style="color:var(--blue);">Crítico</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill bar-blue" data-pct="95"></div></div>
+      <div class="compare-sub">Daño acumulativo. Un día sin funda o sin lavado suma, y el efecto no es reversible.</div>
+    </div>
+    <div class="compare-item">
+      <div class="compare-header">
+        <span class="compare-name">Sol UV — degradación de plásticos y asiento</span>
+        <span class="compare-val" style="color:var(--amber);">Alto</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill bar-amber" data-pct="78"></div></div>
+      <div class="compare-sub">La radiación UV balear en verano es muy intensa. Sin protección, el deterioro es visible en 4–6 semanas.</div>
+    </div>
+    <div class="compare-item">
+      <div class="compare-header">
+        <span class="compare-name">Polvo blanco — obstrucción de filtros</span>
+        <span class="compare-val" style="color:var(--amber);">Alto</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill bar-amber" data-pct="72"></div></div>
+      <div class="compare-sub">Si usas las pistas a cala frecuentemente, el filtro se satura antes del mes. Cada visita a caminos de tierra suma polvo.</div>
+    </div>
+    <div class="compare-item">
+      <div class="compare-header">
+        <span class="compare-name">Presión de neumáticos</span>
+        <span class="compare-val" style="color:var(--ink-mid);">Moderado</span>
+      </div>
+      <div class="bar-track"><div class="bar-fill bar-green" data-pct="50"></div></div>
+      <div class="compare-sub">Revisión quincenal suficiente. Fácil de controlar, pero si se ignora puede comprometer la estabilidad en curvas.</div>
+    </div>
+    <div class="saving-pill">→ Funda + agua dulce semanal = 80% de la protección resuelta</div>
+  </div>
+</div>
+
+
+<!-- CAMINOS DE TIERRA -->
+<div class="block reveal d6">
+  <div class="section-label">Comportamiento en caminos de tierra</div>
+  <div class="terrain-grid">
+    <div class="terrain-item">
+      <div class="terrain-label">Suspensión</div>
+      <div class="terrain-text">Recorrido corto. En caminos con baches o piedras hará "tope" fácilmente. Máximo 20–30 km/h en pistas.</div>
+      <div class="terrain-warn">⚠ Ir rápido en tierra = daño seguro</div>
+    </div>
+    <div class="terrain-item">
+      <div class="terrain-label">Ruedas 13–14"</div>
+      <div class="terrain-text">Tienden a hundirse en arena suelta. Evitar los laterales de los caminos a calas donde se acumula arena blanda.</div>
+    </div>
+    <div class="terrain-item">
+      <div class="terrain-label">ABS en tierra o gravilla</div>
+      <div class="terrain-text">El ABS delantero es muy sensible. En tierra, evita el bloqueo pero alarga mucho la distancia de frenado.</div>
+      <div class="terrain-warn">→ Frenar siempre con suavidad y con ambos frenos</div>
+    </div>
+    <div class="terrain-item">
+      <div class="terrain-label">Control de tracción (HSTC)</div>
+      <div class="terrain-text">Si quedas atrapado en arena, el sistema puede cortar potencia. Mantén el gas constante y suave para salir.</div>
+    </div>
+  </div>
+  <div class="note">
+    <div class="note-dot"></div>
+    <div class="note-text"><strong>La PCX es scooter urbana, no trail.</strong> Está hecha para asfalto. Los caminos de tierra son el contexto donde más fácil puedes dañarla — o caerte. Usa el sentido común con las expectativas.</div>
+  </div>
+</div>
+
+
+<!-- TIPS INSIDER -->
+<div class="block reveal d7">
+  <div class="section-label">Tips insider</div>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <span class="tip-icon">🌡️</span>
+      <div class="tip-title">El efecto horno</div>
+      <div class="tip-text">El motor está justo debajo del cofre. Tras un trayecto largo, el hueco bajo el asiento se calienta mucho. No guardes cámaras, electrónica, comida ni cremas solares — pueden dañarse o explotar literalmente.</div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">🏖️</span>
+      <div class="tip-title">Arena en las manetas</div>
+      <div class="tip-text">Si aparcas cerca de la playa, la arena y el salitre hacen que las manetas de freno cruja o se sientan "arenosas". Un poco de agua dulce y quedan perfectas de nuevo. Nada más.</div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">🅿️</span>
+      <div class="tip-title">Aparcamiento estratégico</div>
+      <div class="tip-text">En Formentera las motos se aparcan muy juntas. Busca los extremos de las filas. Reduce la posibilidad de que otra moto ralle tus laterales de plástico al salir o maniobrar.</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- RESUMEN FINAL -->
+<div class="block reveal d8">
+  <div class="section-label">Resumen operativo</div>
+  <div class="card lift">
+    <div class="terrain-grid">
+      <div class="terrain-item" style="border-left-color: var(--blue);">
+        <div class="terrain-label">Cada semana</div>
+        <div class="terrain-text">Manguerazo de agua dulce con motor frío. Revisa visualmente tornillería y plásticos.</div>
+      </div>
+      <div class="terrain-item" style="border-left-color: var(--blue);">
+        <div class="terrain-label">Cada 15 días</div>
+        <div class="terrain-text">Presión de neumáticos. Estado del candado de disco. Lubrica manetas si notas resistencia.</div>
+      </div>
+      <div class="terrain-item" style="border-left-color: var(--amber);">
+        <div class="terrain-label">Cada 30 días</div>
+        <div class="terrain-text">Sopla los filtros. Aplica renovador UV en plásticos. Spray de grafito en bombines.</div>
+      </div>
+      <div class="terrain-item" style="border-left-color: var(--green);">
+        <div class="terrain-label">Siempre</div>
+        <div class="terrain-text">Funda cuando aparques en exterior. Caballete central. Sin electrónica bajo el asiento.</div>
+      </div>
+    </div>
+  </div>
+  <div class="note" style="margin-top:16px;">
+    <div class="note-dot"></div>
+    <div class="note-text"><strong>Conclusión:</strong> La PCX es la moto ideal para Formentera por consumo y agilidad — pero el ambiente marino acelera el envejecimiento de cualquier moto. Con agua dulce frecuente y funda, la diferencia al final de la temporada es enorme.</div>
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<div class="footer reveal d9">
+  <div class="footer-left">Honda PCX 125 · Formentera</div>
+  <div class="footer-brand">Sanbo</div>
+</div>
+
+
+<script>
+  // Reveal on scroll
+  const revealObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.animationPlayState = 'running';
+        revealObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => {
+    el.style.animationPlayState = 'paused';
+    revealObserver.observe(el);
+  });
+
+  // Animate bars
+  const barObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.bar-fill').forEach(bar => {
+          bar.style.width = bar.dataset.pct + '%';
+        });
+        barObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  document.querySelectorAll('.card').forEach(c => barObserver.observe(c));
+
+  // Animate level items
+  const levelObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.level-item').forEach((item, i) => {
+          item.style.animationDelay = (i * 0.1) + 's';
+          item.style.animationPlayState = 'running';
+        });
+        levelObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.level-block').forEach(b => levelObserver.observe(b));
+</script>
+</body>
+</html>
