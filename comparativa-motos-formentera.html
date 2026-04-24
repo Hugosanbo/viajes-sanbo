@@ -35,7 +35,7 @@
     background: var(--cream);
     color: var(--ink);
     font-family: 'Poppins', sans-serif;
-  letter-spacing: -0.03em;
+    letter-spacing: -0.03em;
     padding: 56px 44px;
     max-width: 860px;
     margin: 0 auto;
@@ -181,12 +181,12 @@
   .compare-sub { font-size: 12px; color: var(--ink-muted); margin-top: 5px; font-weight: 300; }
 
   /* FINANCIACIÓN TABS */
-  .tab-bar { display: flex; gap: 8px; margin-bottom: 20px; }
+  .tab-bar { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
   .tab-btn {
     padding: 8px 18px; border-radius: 99px; font-size: 13px; font-weight: 500;
     border: 1px solid var(--border); background: var(--cream-dark);
     color: var(--ink-mid); cursor: pointer; font-family: 'Poppins', sans-serif;
-  letter-spacing: -0.03em;
+    letter-spacing: -0.03em;
     transition: all 0.18s ease;
   }
   .tab-btn:hover { border-color: var(--blue); color: var(--blue); }
@@ -272,6 +272,59 @@
     border-radius: 99px; padding: 7px 16px;
     font-size: 13px; font-weight: 500; color: var(--green); margin-top: 14px;
   }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    body { padding: 80px 18px 40px; }
+
+    .header {
+      flex-direction: column; gap: 20px; align-items: flex-start;
+      margin-bottom: 36px; padding-bottom: 24px;
+    }
+    .header-right { text-align: left; }
+    .header-title { font-size: 36px; }
+    .header-sub { font-size: 12px; }
+
+    .moto-grid { grid-template-columns: 1fr; }
+    .moto-card .mc-name { font-size: 17px; }
+    .moto-card .mc-price { font-size: 22px; }
+    .mc-row .k { font-size: 11px; }
+    .mc-row .v { font-size: 12px; }
+
+    .compare-name { font-size: 13px; }
+    .compare-val { font-size: 13px; }
+    .saving-pill { font-size: 12px; padding: 6px 13px; }
+
+    .fin-grid { grid-template-columns: 1fr; }
+    .fin-row .k { font-size: 12px; }
+    .fin-row .v { font-size: 13px; }
+
+    .verdict-grid { grid-template-columns: 1fr; }
+    .verdict-item .vtitle { font-size: 14px; }
+    .verdict-item .vtext { font-size: 12px; }
+
+    .recompra-row { flex-direction: column; align-items: flex-start; gap: 6px; padding: 14px 16px; }
+    .recompra-row .rval { font-size: 22px; }
+    .recompra-row .rdesc { font-size: 12px; }
+
+    .maint-grid { grid-template-columns: 1fr; gap: 0; }
+    .maint-col { padding-right: 0; }
+    .maint-col + .maint-col { padding: 20px 0 0 0; border-left: none; border-top: 1px solid var(--border); margin-top: 16px; }
+    .maint-text { font-size: 13px; }
+
+    .card { padding: 18px 16px; }
+    .section-label { font-size: 10px; }
+    .tab-btn { font-size: 12px; padding: 7px 13px; }
+    .note-text { font-size: 12px; }
+  }
+
+  @media (max-width: 420px) {
+    .header-title { font-size: 30px; }
+    .header-right .chosen-name { font-size: 18px; }
+    .header-right .chosen-price { font-size: 13px; }
+    .moto-card .mc-price { font-size: 20px; }
+    .recompra-row .rval { font-size: 20px; }
+  }
 </style>
 </head>
 <body>
@@ -342,7 +395,7 @@
       <div class="winner-ribbon">Elegida</div>
       <div class="mc-tag">Opción 3</div>
       <div class="mc-name">Honda PCX</div>
-      <div class="mc-cc">125 cc · 2025</div>
+      <div class="mc-cc">125 cc · 2026</div>
       <div class="mc-price">3.491,78 €</div>
       <hr class="mc-divider">
       <div class="mc-row"><span class="k">Fin. 36m (entrada 561€)</span><span class="v bad">4.241,45 €</span></div>
