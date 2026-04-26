@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rutas Ibiza — Viajes SANBO</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FDFAF5;
+    --cream-dark: #F4EFE5;
+    --cream-darker: #EDE5D4;
+    --blue: #1B4FFF;
+    --blue-light: rgba(27,79,255,0.07);
+    --blue-pale: #E8EEFF;
+    --blue-border: rgba(27,79,255,0.22);
+    --ink: #1A1A1A;
+    --ink-mid: #4A4A4A;
+    --ink-muted: #9A9A9A;
+    --border: rgba(26,26,26,0.09);
+    --border-med: rgba(26,26,26,0.14);
+    --green: #1A7A45;
+    --green-bg: rgba(26,122,69,0.07);
+    --green-border: rgba(26,122,69,0.2);
+    --amber: #B06000;
+    --amber-bg: rgba(176,96,0,0.07);
+    --amber-border: rgba(176,96,0,0.2);
+  }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    padding: 56px 44px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0;
+    animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) forwards;
+    animation-play-state: paused;
+  }
+  .d1{animation-delay:.05s} .d2{animation-delay:.13s} .d3{animation-delay:.21s}
+  .d4{animation-delay:.29s} .d5{animation-delay:.37s} .d6{animation-delay:.45s}
+
+  /* HEADER */
+  .header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 36px; padding-bottom: 36px;
+    border-bottom: 1.5px solid var(--border-med);
+  }
+  .brand-tag {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+    color: var(--blue); text-transform: uppercase; margin-bottom: 12px;
+  }
+  .header-title {
+    font-size: 46px; font-weight: 700; letter-spacing: -0.05em;
+    line-height: 1; color: var(--ink);
+    text-shadow: 0 4px 20px rgba(0,0,0,0.10);
+  }
+  .header-title span { color: var(--blue); }
+  .header-sub {
+    font-size: 13px; color: var(--ink-muted); margin-top: 10px;
+    font-weight: 300;
+  }
+  .header-right { text-align: right; }
+  .header-badge {
+    display: inline-block; background: var(--blue); color: #fff;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 5px 14px; border-radius: 99px; margin-bottom: 8px;
+  }
+  .header-count {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px; font-weight: 400; color: var(--blue);
+    display: block; line-height: 1;
+    text-shadow: 0 4px 24px rgba(27,79,255,0.20);
+  }
+  .header-count-label {
+    font-size: 13px; font-weight: 300; color: var(--ink-muted); margin-top: 3px;
+  }
+
+  /* BANNER */
+  .banner {
+    width: 100%; height: 340px;
+    border-radius: 18px; overflow: hidden;
+    margin-bottom: 52px; position: relative;
+  }
+  .banner img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center 60%;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  }
+  .banner:hover img { transform: scale(1.03); }
+  .banner-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(26,26,26,0.42) 0%, transparent 60%);
+    border-radius: 18px;
+  }
+  .banner-label {
+    position: absolute; bottom: 22px; left: 26px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+    color: rgba(255,255,255,0.75); text-transform: uppercase;
+  }
+
+  /* SECTION */
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+    color: var(--blue); text-transform: uppercase; margin-bottom: 20px;
+  }
+  .block { margin-bottom: 48px; }
+
+  /* ROUTE CARDS */
+  .rutas-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    margin-bottom: 16px;
+  }
+  .ruta-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 16px; overflow: hidden; text-decoration: none;
+    color: inherit; display: block;
+    transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease;
+  }
+  .ruta-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(27,79,255,0.10); }
+  .ruta-card-img {
+    height: 180px; overflow: hidden; position: relative;
+  }
+  .ruta-card-img img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
+  }
+  .ruta-card:hover .ruta-card-img img { transform: scale(1.06); }
+  .ruta-card-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 55%);
+  }
+  .ruta-card-img .tag {
+    position: absolute; top: 14px; left: 14px;
+    background: var(--blue); color: #fff;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 4px 11px; border-radius: 99px;
+  }
+  .ruta-card-body { padding: 22px 22px 20px; }
+  .ruta-card-body h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px; font-weight: 400; margin-bottom: 8px;
+    line-height: 1.25; letter-spacing: 0;
+  }
+  .ruta-card-body p {
+    font-size: 13px; color: var(--ink-mid); line-height: 1.65;
+    font-weight: 300; margin-bottom: 16px;
+  }
+  .ruta-card-meta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .meta-item { font-size: 12px; color: var(--ink-muted); display: flex; align-items: center; gap: 5px; }
+
+  /* PRÓXIMAMENTE */
+  .prox-card {
+    border: 1.5px dashed var(--border-med); border-radius: 14px;
+    padding: 32px; text-align: center;
+    background: transparent;
+  }
+  .prox-icon { font-size: 28px; display: block; margin-bottom: 12px; }
+  .prox-text { font-size: 14px; color: var(--ink-muted); font-weight: 300; }
+  .prox-text strong { color: var(--ink-mid); font-weight: 500; }
+
+  /* STATS */
+  .stats-row {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;
+    margin-bottom: 48px;
+  }
+  .stat-card {
+    background: var(--cream-dark); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px 14px; text-align: center;
+    transition: transform 0.2s ease;
+  }
+  .stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26,26,26,0.08); }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px; font-weight: 400;
+    color: var(--blue); display: block; line-height: 1;
+    text-shadow: 0 2px 16px rgba(27,79,255,0.18);
+  }
+  .stat-label { font-size: 11px; color: var(--ink-muted); font-weight: 300; margin-top: 6px; line-height: 1.4; }
+
+  /* NOTE */
+  .note {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 14px 18px; border-radius: 10px;
+    background: var(--blue-light); border: 1px solid var(--blue-border);
+  }
+  .note-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); margin-top: 5px; flex-shrink: 0; }
+  .note-text { font-size: 13px; color: var(--ink-mid); line-height: 1.65; font-weight: 300; }
+  .note-text strong { color: var(--blue); font-weight: 600; }
+
+  /* FOOTER */
+  .footer {
+    border-top: 1.5px solid var(--border-med); padding-top: 28px; margin-top: 8px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-left { font-size: 12px; color: var(--ink-muted); font-weight: 300; }
+  .footer-brand { font-size: 14px; font-weight: 700; letter-spacing: -0.03em; color: var(--blue); text-transform: uppercase; }
+</style>
+</head>
+<body>
+
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;background:rgba(253,250,245,0.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(10,10,10,0.08);">
+  <a href="index.html" style="font-family:Poppins,sans-serif;font-weight:500;font-size:15px;letter-spacing:-0.06em;text-transform:uppercase;color:#0A0A0A;text-decoration:none;">Viajes <span style="color:#1B4FFF">SANBO</span></a>
+  <a href="index.html" style="font-size:13px;color:#6B6B6B;text-decoration:none;display:flex;align-items:center;gap:6px;">← Volver</a>
+</nav>
+<div style="height:64px;"></div>
+
+<!-- HEADER -->
+<div class="header reveal d1">
+  <div>
+    <div class="brand-tag">Sanbo — Rutas de isla</div>
+    <h1 class="header-title">Rutas<br><span>Ibiza</span></h1>
+    <p class="header-sub">Rutas en moto · Calas · Atardeceres · Cultura</p>
+  </div>
+  <div class="header-right">
+    <span class="header-badge">En construcción</span>
+    <span class="header-count">1</span>
+    <p class="header-count-label">Ruta disponible</p>
+  </div>
+</div>
+
+<!-- BANNER -->
+<div class="banner reveal d2">
+  <img src="img/ibiza_2.jpg" alt="Ibiza — calas y aguas cristalinas">
+  <div class="banner-overlay"></div>
+  <span class="banner-label">Ibiza · Baleares</span>
+</div>
+
+<!-- STATS -->
+<div class="stats-row reveal d2">
+  <div class="stat-card">
+    <span class="stat-num">1</span>
+    <div class="stat-label">Ruta disponible</div>
+  </div>
+  <div class="stat-card">
+    <span class="stat-num">7</span>
+    <div class="stat-label">Paradas en la ruta actual</div>
+  </div>
+  <div class="stat-card">
+    <span class="stat-num">~7h</span>
+    <div class="stat-label">Duración estimada</div>
+  </div>
+</div>
+
+<!-- RUTAS -->
+<div class="block reveal d3">
+  <div class="section-label">Rutas disponibles</div>
+  <div class="rutas-grid">
+
+    <a href="ruta-ibiza-atardecer-es-vedra.html" class="ruta-card">
+      <div class="ruta-card-img">
+        <img src="img/es_vedra.jpg" alt="Atardecer Es Vedrà">
+        <div class="ruta-card-img-overlay"></div>
+        <span class="tag">Moto · 1 día</span>
+      </div>
+      <div class="ruta-card-body">
+        <h3>Atardecer en Es Vedrà</h3>
+        <p>Del puerto de Ibiza al suroeste. Calas, mercado hippie y el atardecer más icónico del Mediterráneo desde la Torre des Savinar.</p>
+        <div class="ruta-card-meta">
+          <span class="meta-item">🗺️ 7 paradas</span>
+          <span class="meta-item">🌅 Atardecer</span>
+          <span class="meta-item">🛵 En moto</span>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="prox-card">
+    <span class="prox-icon">🗺️</span>
+    <p class="prox-text"><strong>Más rutas en preparación</strong> — Ruta norte, Dalt Vila, Ses Salines y más.</p>
+  </div>
+</div>
+
+<!-- NOTA -->
+<div class="note reveal d4" style="margin-bottom:48px;">
+  <div class="note-dot"></div>
+  <div class="note-text"><strong>Sobre estas rutas:</strong> Diseñadas para hacer en moto desde el puerto de Ibiza tras coger el ferry desde Formentera. Todas son rutas de ida y vuelta en el mismo día, terminando en Dalt Vila antes del ferry de vuelta.</div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer reveal d5">
+  <div class="footer-left">Ibiza · Baleares · 2026</div>
+  <div class="footer-brand">Sanbo</div>
+</div>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.animationPlayState = 'running';
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => {
+    el.style.animationPlayState = 'paused';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>

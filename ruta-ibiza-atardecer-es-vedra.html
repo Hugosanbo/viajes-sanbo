@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atardecer Es Vedrà — Ruta Ibiza · Viajes SANBO</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FDFAF5;
+    --cream-dark: #F4EFE5;
+    --cream-darker: #EDE5D4;
+    --blue: #1B4FFF;
+    --blue-light: rgba(27,79,255,0.07);
+    --blue-pale: #E8EEFF;
+    --blue-border: rgba(27,79,255,0.22);
+    --ink: #1A1A1A;
+    --ink-mid: #4A4A4A;
+    --ink-muted: #9A9A9A;
+    --border: rgba(26,26,26,0.09);
+    --border-med: rgba(26,26,26,0.14);
+    --green: #1A7A45;
+    --green-bg: rgba(26,122,69,0.07);
+    --green-border: rgba(26,122,69,0.2);
+    --amber: #B06000;
+    --amber-bg: rgba(176,96,0,0.07);
+    --amber-border: rgba(176,96,0,0.2);
+    --sunset: #D4570A;
+    --sunset-bg: rgba(212,87,10,0.07);
+    --sunset-border: rgba(212,87,10,0.22);
+  }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    padding: 56px 44px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-16px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  .reveal {
+    opacity: 0;
+    animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) forwards;
+    animation-play-state: paused;
+  }
+  .d1{animation-delay:.05s} .d2{animation-delay:.13s} .d3{animation-delay:.21s}
+  .d4{animation-delay:.29s} .d5{animation-delay:.37s} .d6{animation-delay:.45s}
+  .d7{animation-delay:.53s} .d8{animation-delay:.61s} .d9{animation-delay:.69s}
+
+  /* HEADER */
+  .header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 36px; padding-bottom: 36px;
+    border-bottom: 1.5px solid var(--border-med);
+  }
+  .brand-tag {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+    color: var(--blue); text-transform: uppercase; margin-bottom: 12px;
+  }
+  .header-title {
+    font-size: 42px; font-weight: 700; letter-spacing: -0.04em;
+    line-height: 1.05; color: var(--ink);
+    text-shadow: 0 4px 20px rgba(0,0,0,0.10);
+  }
+  .header-title span { color: var(--blue); }
+  .header-sub {
+    font-size: 13px; color: var(--ink-muted); margin-top: 10px;
+    font-weight: 300;
+  }
+  .header-right { text-align: right; flex-shrink: 0; margin-left: 24px; }
+  .header-badge {
+    display: inline-block; background: var(--sunset); color: #fff;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 5px 14px; border-radius: 99px; margin-bottom: 8px;
+  }
+  .header-model {
+    font-size: 19px; font-weight: 700; letter-spacing: -0.03em;
+    color: var(--ink); display: block; line-height: 1.2;
+  }
+  .header-season {
+    font-size: 12px; font-weight: 300; color: var(--ink-muted); margin-top: 4px;
+  }
+
+  /* BANNER */
+  .banner {
+    width: 100%; height: 380px;
+    border-radius: 18px; overflow: hidden;
+    margin-bottom: 48px; position: relative;
+  }
+  .banner img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: center 50%;
+    display: block;
+    transition: transform 0.7s cubic-bezier(0.22,1,0.36,1);
+  }
+  .banner:hover img { transform: scale(1.03); }
+  .banner-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(20,10,5,0.55) 0%, rgba(0,0,0,0.08) 55%, transparent 100%);
+    border-radius: 18px;
+  }
+  .banner-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 28px 28px 26px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .banner-caption-left .bc-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.60); text-transform: uppercase; margin-bottom: 4px;
+  }
+  .banner-caption-left .bc-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px; font-weight: 400; color: #fff; line-height: 1;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+  }
+  .banner-caption-right {
+    display: flex; flex-direction: column; align-items: flex-end; gap: 6px;
+  }
+  .banner-pill {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 4px 12px; border-radius: 99px;
+    background: rgba(255,255,255,0.18); backdrop-filter: blur(8px);
+    color: #fff; border: 1px solid rgba(255,255,255,0.25);
+  }
+
+  /* SECTION */
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+    color: var(--blue); text-transform: uppercase; margin-bottom: 18px;
+  }
+  .block { margin-bottom: 44px; }
+
+  /* STATS ROW */
+  .stats-row {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    margin-bottom: 44px;
+  }
+  .stat-card {
+    background: var(--cream-dark); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px 14px; text-align: center;
+    transition: transform 0.2s ease;
+  }
+  .stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26,26,26,0.08); }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-weight: 400;
+    color: var(--blue); display: block; line-height: 1;
+    text-shadow: 0 2px 16px rgba(27,79,255,0.18);
+  }
+  .stat-label { font-size: 11px; color: var(--ink-muted); font-weight: 300; margin-top: 6px; line-height: 1.4; }
+
+  /* CARDS */
+  .card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 14px; padding: 24px 26px;
+  }
+  .lift {
+    transition: transform 0.22s cubic-bezier(0.22,1,0.36,1), box-shadow 0.22s ease;
+  }
+  .lift:hover { transform: translateY(-3px); box-shadow: 0 10px 32px rgba(26,26,26,0.09); }
+
+  /* PARADAS (ROUTE STOPS) */
+  .paradas-list { display: flex; flex-direction: column; gap: 0; }
+
+  .parada {
+    display: flex; align-items: flex-start; gap: 20px;
+    padding: 22px 0; border-bottom: 1px solid var(--border);
+    transition: padding-left 0.2s ease; cursor: default;
+  }
+  .parada:last-child { border-bottom: none; }
+  .parada:hover { padding-left: 8px; }
+
+  .parada.featured {
+    background: var(--sunset-bg);
+    border: 1px solid var(--sunset-border);
+    border-radius: 14px; padding: 22px 20px;
+    margin: 8px 0;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+  }
+  .parada.featured:hover {
+    padding-left: 20px;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 32px rgba(212,87,10,0.10);
+  }
+
+  .parada-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 400; color: var(--blue);
+    min-width: 36px; flex-shrink: 0; margin-top: 2px;
+    text-shadow: 0 2px 12px rgba(27,79,255,0.18);
+    line-height: 1;
+  }
+  .parada.featured .parada-num { color: var(--sunset); text-shadow: 0 2px 12px rgba(212,87,10,0.25); }
+
+  .parada-body { flex: 1; }
+
+  .parada-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 8px; gap: 12px; flex-wrap: wrap;
+  }
+  .parada-name {
+    font-size: 16px; font-weight: 600; letter-spacing: -0.02em; color: var(--ink);
+  }
+  .parada.featured .parada-name { color: var(--sunset); }
+
+  .parada-badges { display: flex; gap: 6px; flex-wrap: wrap; flex-shrink: 0; }
+
+  .meta-pill {
+    font-size: 10px; font-weight: 500; letter-spacing: 0.06em;
+    padding: 3px 9px; border-radius: 99px; text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .pill-blue   { background: var(--blue-light); color: var(--blue); border: 1px solid var(--blue-border); }
+  .pill-green  { background: var(--green-bg);   color: var(--green); border: 1px solid var(--green-border); }
+  .pill-amber  { background: var(--amber-bg);   color: var(--amber); border: 1px solid var(--amber-border); }
+  .pill-sunset { background: var(--sunset-bg);  color: var(--sunset); border: 1px solid var(--sunset-border); }
+  .pill-muted  { background: var(--cream-dark); color: var(--ink-muted); border: 1px solid var(--border); }
+
+  .parada-meta {
+    display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px;
+  }
+  .parada-nota {
+    font-size: 13px; color: var(--ink-mid); line-height: 1.65; font-weight: 300;
+  }
+  .parada.featured .parada-nota { color: var(--ink-mid); }
+
+  .parada-highlight {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--sunset-bg); border: 1px solid var(--sunset-border);
+    border-radius: 99px; padding: 5px 14px;
+    font-size: 12px; font-weight: 600; color: var(--sunset); margin-top: 10px;
+  }
+
+  /* NOTES */
+  .note {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 14px 18px; border-radius: 10px;
+    background: var(--blue-light); border: 1px solid var(--blue-border); margin-top: 16px;
+  }
+  .note-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); margin-top: 5px; flex-shrink: 0; }
+  .note-text { font-size: 13px; color: var(--ink-mid); line-height: 1.65; font-weight: 300; }
+  .note-text strong { color: var(--blue); font-weight: 600; }
+
+  .note.amber-note {
+    background: var(--amber-bg); border-color: var(--amber-border);
+  }
+  .note.amber-note .note-dot { background: var(--amber); }
+  .note.amber-note .note-text strong { color: var(--amber); }
+
+  /* EXTRA DESTINATIONS */
+  .extras-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+  }
+  .extra-card {
+    background: var(--cream-dark); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .extra-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,26,26,0.07); }
+  .extra-icon { font-size: 20px; margin-bottom: 8px; display: block; }
+  .extra-name { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .extra-zone { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; color: var(--ink-muted); text-transform: uppercase; margin-bottom: 8px; }
+  .extra-text { font-size: 12px; color: var(--ink-mid); line-height: 1.6; font-weight: 300; }
+  .extra-tag { display: inline-block; margin-top: 10px; }
+
+  /* DIVIDER */
+  .hr { border: none; border-top: 1px solid var(--border); margin: 4px 0; }
+
+  /* FOOTER */
+  .footer {
+    border-top: 1.5px solid var(--border-med); padding-top: 28px; margin-top: 8px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-left { font-size: 12px; color: var(--ink-muted); font-weight: 300; }
+  .footer-brand { font-size: 14px; font-weight: 700; letter-spacing: -0.03em; color: var(--blue); text-transform: uppercase; }
+
+  .breadcrumb {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; color: var(--ink-muted); margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .breadcrumb a { color: var(--blue); text-decoration: none; }
+  .breadcrumb a:hover { text-decoration: underline; }
+  .breadcrumb span { color: var(--border-med); }
+</style>
+</head>
+<body>
+
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;background:rgba(253,250,245,0.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(10,10,10,0.08);">
+  <a href="index.html" style="font-family:Poppins,sans-serif;font-weight:500;font-size:15px;letter-spacing:-0.06em;text-transform:uppercase;color:#0A0A0A;text-decoration:none;">Viajes <span style="color:#1B4FFF">SANBO</span></a>
+  <a href="rutas-ibiza.html" style="font-size:13px;color:#6B6B6B;text-decoration:none;display:flex;align-items:center;gap:6px;">← Rutas Ibiza</a>
+</nav>
+<div style="height:64px;"></div>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb reveal d1">
+  <a href="index.html">Inicio</a>
+  <span>›</span>
+  <a href="rutas-ibiza.html">Rutas Ibiza</a>
+  <span>›</span>
+  <span style="color:var(--ink-mid);">Atardecer Es Vedrà</span>
+</div>
+
+<!-- HEADER -->
+<div class="header reveal d1">
+  <div>
+    <div class="brand-tag">Sanbo — Ruta en moto · Ibiza</div>
+    <h1 class="header-title">Atardecer<br><span>Es Vedrà</span></h1>
+    <p class="header-sub">Puerto de Ibiza → suroeste · Ruta completa de un día</p>
+  </div>
+  <div class="header-right">
+    <span class="header-badge">🌅 Atardecer</span>
+    <span class="header-model">7 paradas</span>
+    <p class="header-season">Desde el Puerto de Ibiza · ~7h</p>
+  </div>
+</div>
+
+<!-- BANNER -->
+<div class="banner reveal d2">
+  <img src="img/es_vedra.jpg" alt="Atardecer en Es Vedrà — Ibiza">
+  <div class="banner-overlay"></div>
+  <div class="banner-caption">
+    <div class="banner-caption-left">
+      <div class="bc-label">Destino final</div>
+      <div class="bc-name">Es Vedrà</div>
+    </div>
+    <div class="banner-caption-right">
+      <span class="banner-pill">Torre des Savinar</span>
+      <span class="banner-pill">Suroeste · Ibiza</span>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-row reveal d2">
+  <div class="stat-card">
+    <span class="stat-num">7</span>
+    <div class="stat-label">Paradas en ruta</div>
+  </div>
+  <div class="stat-card">
+    <span class="stat-num">~7h</span>
+    <div class="stat-label">Duración estimada</div>
+  </div>
+  <div class="stat-card">
+    <span class="stat-num">E→O</span>
+    <div class="stat-label">Este a suroeste</div>
+  </div>
+  <div class="stat-card">
+    <span class="stat-num">🛵</span>
+    <div class="stat-label">En moto</div>
+  </div>
+</div>
+
+<!-- RUTA PRINCIPAL -->
+<div class="block reveal d3">
+  <div class="section-label">Ruta principal — orden del día</div>
+  <div class="card">
+    <div class="note" style="margin-bottom:20px; margin-top:0;">
+      <div class="note-dot"></div>
+      <div class="note-text"><strong>Punto de partida:</strong> Puerto de Ibiza (Eivissa). La ruta rodea la isla de este a suroeste, terminando en Dalt Vila para cenar antes del ferry de vuelta a Formentera.</div>
+    </div>
+
+    <div class="paradas-list">
+
+      <!-- PARADA 1 -->
+      <div class="parada">
+        <div class="parada-num">01</div>
+        <div class="parada-body">
+          <div class="parada-top">
+            <span class="parada-name">Santa Eulàlia des Riu</span>
+            <div class="parada-badges">
+              <span class="meta-pill pill-muted">Opcional</span>
+            </div>
+          </div>
+          <div class="parada-meta">
+            <span class="meta-pill pill-blue">Este</span>
+            <span class="meta-pill pill-muted">30–45 min</span>
+          </div>
+          <div class="parada-nota">Si al salir del ferry tienes tiempo y energía, te acercas. Si no, directo a Las Dalias sin pena. No es un must.</div>
+        </div>
+      </div>
+
+      <!-- PARADA 2 -->
+      <div class="parada">
+        <div class="parada-num">02</div>
+        <div class="parada-body">
+          <div class="parada-top">
+            <span class="parada-name">Las Dalias</span>
+            <div class="parada-badges">
+              <span class="meta-pill pill-amber">Verificar horario</span>
+            </div>
+          </div>
+          <div class="parada-meta">
+            <span class="meta-pill pill-blue">Noreste · interior</span>
+            <span class="meta-pill pill-muted">1h</span>
+          </div>
+          <div class="parada-nota">Mercado hippie. Comprueba antes si hay mercado ese día — principalmente sábados. Sin mercado pierde bastante interés.</div>
+        </div>
+      </div>
+
+      <!-- PARADA 3 -->
+      <div class="parada">
+        <div class="parada-num">03</div>
+        <div class="parada-body">
+          <div class="parada-top">
+            <span class="parada-name">Cala d'en Serra</span>
+          </div>
+          <div class="parada-meta">
+            <span class="meta-pill pill-blue">Noreste</span>
+            <span class="meta-pill pill-muted">45 min – 1h</span>
+          </div>
+          <div class="parada-nota">De paso después de Las Dalias. Acceso fácil, no espectacular, pero el encadenamiento geográfico tiene sentido.</div>
+        </div>
+      </div>
+
+      <!-- PARADA 4 -->
+      <div class="parada">
+        <div class="parada-num">04</div>
+        <div class="parada-body">
+          <div class="parada-top">
+            <span class="parada-name">Cala Conta</span>
+            <div class="parada-badges">
+              <span class="meta-pill pill-amber">Muy masificada</span>
+            </div>
+          </div>
+          <div class="parada-meta">
+            <span class="meta-pill pill-blue">Suroeste</span>
+            <span class="meta-pill pill-muted">20–30 min</span>
+          </div>
+          <div class="parada-nota">Muy masificada en verano — parada rápida para verla, no para quedarse. Con moto el aparcamiento no es problema.</div>
+        </div>
+      </div>
+
+      <!-- PARADA 5 -->
+      <div class="parada">
+        <div class="parada-num">05</div>
+        <div class="parada-body">
+          <div class="parada-top">
+            <span class="parada-name">Cala Llentrisca</span>
+            <div class="parada-badges">
+              <span class="meta-pill pill-green">Joya de la ruta</span>
+            </div>
+          </div>
+          <div class="parada-meta">
+            <span class="meta-pill pill-blue">Sur</span>
+            <span class="meta-pill pill-muted">1h – 1h 30min</span>
+          </div>
+          <div class="parada-nota">La joya de la ruta. Acceso difícil = menos gente. Reserva tiempo y energía para esto. Va después de Conta por lógica geográfica.</div>
+        </div>
+      </div>
+
+      <!-- PARADA 6 — FEATURED -->
+      <div class="parada featured">
+        <div class="parada-num">06</div>
+        <div class="parada-body">
+          <div class="parada-top">
+            <span class="parada-name">Es Vedrà + Torre des Savinar</span>
+            <div class="parada-badges">
+              <span class="meta-pill pill-sunset">🌅 Atardecer aquí</span>
+            </div>
+          </div>
+          <div class="parada-meta">
+            <span class="meta-pill pill-blue">Suroeste</span>
+            <span class="meta-pill pill-muted">1h 30min – 2h</span>
+          </div>
+          <div class="parada-nota">El objetivo de toda la ruta. Sube a la Torre des Savinar para tener la mejor vista de Es Vedrà. Llega con margen — el camino a la torre es a pie y tarda unos 20 minutos.</div>
+          <div class="parada-highlight">→ Cala d'Hort está justo al lado. Si llegas con tiempo, date un baño antes de subir a la torre.</div>
+        </div>
+      </div>
+
+      <!-- PARADA 7 -->
+      <div class="parada">
+        <div class="parada-num">07</div>
+        <div class="parada-body">
+          <div class="parada-top">
+            <span class="parada-name">Dalt Vila</span>
+          </div>
+          <div class="parada-meta">
+            <span class="meta-pill pill-blue">Centro · Ciudad</span>
+            <span class="meta-pill pill-muted">Noche</span>
+          </div>
+          <div class="parada-nota">Casco histórico, murallas, cenar por ahí. Terminas aquí antes del ferry de vuelta a Formentera.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- NOTAS DE RUTA -->
+<div class="block reveal d4">
+  <div class="section-label">Notas importantes</div>
+
+  <div class="note">
+    <div class="note-dot"></div>
+    <div class="note-text"><strong>Cala d'Hort:</strong> Está literalmente al lado de Es Vedrà. Si llegas con tiempo antes del atardecer, te das un baño ahí y luego subes a la torre. Bonus gratuito sin desvío.</div>
+  </div>
+
+  <div class="note" style="margin-top:10px;">
+    <div class="note-dot"></div>
+    <div class="note-text"><strong>Benirrás descartada:</strong> Geográficamente incompatible — está en el norte y meterla obliga a cruzar toda la isla justo cuando deberías estar bajando hacia el suroeste para el atardecer.</div>
+  </div>
+</div>
+
+<!-- OTROS DESTINOS A VALORAR -->
+<div class="block reveal d5">
+  <div class="section-label">Otros destinos a valorar</div>
+  <div class="extras-grid">
+
+    <div class="extra-card">
+      <span class="extra-icon">🏖️</span>
+      <div class="extra-name">Cala Salada</div>
+      <div class="extra-zone">Norte / noroeste</div>
+      <div class="extra-text">Pequeña, protegida por acantilados, agua muy clara. Si algún día haces una ruta exclusiva por el norte, parada obligatoria.</div>
+      <span class="meta-pill pill-blue extra-tag">Ruta norte</span>
+    </div>
+
+    <div class="extra-card">
+      <span class="extra-icon">🌿</span>
+      <div class="extra-name">Ses Salines</div>
+      <div class="extra-zone">Sur · Parque natural</div>
+      <div class="extra-text">Flamingos, salinas, playa larga. Muy diferente al resto. Pilla camino entre Eivissa y Cala Llentrisca — si tienes tiempo al inicio del día, merece una parada corta.</div>
+      <span class="meta-pill pill-green extra-tag">Opcional de inicio</span>
+    </div>
+
+    <div class="extra-card">
+      <span class="extra-icon">🍽️</span>
+      <div class="extra-name">Cala Mastella</div>
+      <div class="extra-zone">Noreste · Cerca de Cala d'en Serra</div>
+      <div class="extra-text">Cala pequeña con el restaurante <strong style="font-weight:500;">Es Bigotes</strong> literalmente en la orilla — solo sirven langosta, reserva con antelación. Si no te interesa comer, la cala sola no justifica el desvío.</div>
+      <span class="meta-pill pill-amber extra-tag">Requiere reserva</span>
+    </div>
+
+    <div class="extra-card">
+      <span class="extra-icon">🌅</span>
+      <div class="extra-name">Sant Antoni de Portmany</div>
+      <div class="extra-zone">Costa oeste</div>
+      <div class="extra-text">Aquí nacieron el Café del Mar y el Café Mambo — los primeros chillout de atardecer del mundo. Más urbano y turístico. Solo si quieres atardecer con ambiente de chiringuito en lugar de naturaleza pura.</div>
+      <span class="meta-pill pill-muted extra-tag">Alternativa urbana</span>
+    </div>
+
+  </div>
+
+  <div class="note amber-note" style="margin-top:16px;">
+    <div class="note-dot"></div>
+    <div class="note-text"><strong>Criterio para añadir paradas:</strong> Esta ruta ya lleva ~7h. Cada parada extra que añadas quita tiempo en otra. Mejor hacer menos sitios y disfrutarlos bien que correr por siete.</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer reveal d6">
+  <div class="footer-left">Ruta Ibiza · Atardecer Es Vedrà · Actualizada 26/04/2026</div>
+  <div class="footer-brand">Sanbo</div>
+</div>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.animationPlayState = 'running';
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal').forEach(el => {
+    el.style.animationPlayState = 'paused';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
