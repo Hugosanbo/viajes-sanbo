@@ -45,7 +45,6 @@
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-  @keyframes barGrow { from { width: 0; } }
 
   .reveal {
     opacity: 0;
@@ -61,6 +60,7 @@
     display: flex; justify-content: space-between; align-items: flex-start;
     margin-bottom: 52px; padding-bottom: 36px;
     border-bottom: 1.5px solid var(--border-med);
+    gap: 20px;
   }
   .brand-tag {
     font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
@@ -68,7 +68,7 @@
   }
   .header-title {
     text-shadow: 0 4px 20px rgba(0,0,0,0.10);
-    font-size: 46px; font-weight: 700; letter-spacing: -0.04em;
+    font-size: clamp(34px, 7vw, 46px); font-weight: 700; letter-spacing: -0.04em;
     line-height: 1; color: var(--ink);
   }
   .header-title span { color: var(--blue); }
@@ -76,18 +76,18 @@
     font-size: 13px; color: var(--ink-muted); margin-top: 10px;
     font-weight: 300; letter-spacing: 0.02em;
   }
-  .header-right { text-align: right; }
+  .header-right { text-align: right; flex-shrink: 0; }
   .header-right .badge-winner {
     display: inline-block; background: var(--blue); color: #fff;
     font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
     text-transform: uppercase; padding: 5px 14px; border-radius: 99px; margin-bottom: 8px;
   }
   .header-right .chosen-name {
-    font-size: 22px; font-weight: 700; letter-spacing: -0.03em; color: var(--ink);
+    font-size: 20px; font-weight: 700; letter-spacing: -0.03em; color: var(--ink);
     display: block;
   }
   .header-right .chosen-price {
-    font-size: 15px; font-weight: 400; color: var(--ink-muted); margin-top: 3px;
+    font-size: 14px; font-weight: 400; color: var(--ink-muted); margin-top: 3px;
   }
 
   /* SECTION */
@@ -148,9 +148,10 @@
   .mc-divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
   .mc-row {
     display: flex; justify-content: space-between; align-items: center; padding: 4px 0;
+    gap: 8px;
   }
   .mc-row .k { font-size: 12px; color: var(--ink-muted); font-weight: 300; }
-  .mc-row .v { font-size: 13px; font-weight: 500; color: var(--ink); }
+  .mc-row .v { font-size: 13px; font-weight: 500; color: var(--ink); white-space: nowrap; }
   .mc-row .v.bad { color: var(--red); }
   .mc-row .v.good { color: var(--green); }
   .mc-features { margin-top: 14px; }
@@ -167,9 +168,9 @@
   /* COMPARATIVA DE BARRAS */
   .compare-item { margin-bottom: 20px; }
   .compare-item:last-child { margin-bottom: 0; }
-  .compare-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+  .compare-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; gap: 8px; }
   .compare-name { font-size: 14px; font-weight: 500; color: var(--ink); }
-  .compare-val { font-size: 15px; font-weight: 700; letter-spacing: -0.02em; }
+  .compare-val { font-size: 15px; font-weight: 700; letter-spacing: -0.02em; white-space: nowrap; }
   .bar-track { height: 9px; background: var(--cream-darker); border-radius: 99px; overflow: hidden; }
   .bar-fill {
     height: 100%; border-radius: 99px; width: 0;
@@ -210,10 +211,11 @@
   .fin-row {
     display: flex; justify-content: space-between; align-items: center;
     padding: 7px 0; border-bottom: 1px solid rgba(26,26,26,0.05);
+    gap: 8px;
   }
   .fin-row:last-of-type { border-bottom: none; }
   .fin-row .k { font-size: 13px; color: var(--ink-muted); font-weight: 300; }
-  .fin-row .v { font-size: 14px; font-weight: 600; color: var(--ink); }
+  .fin-row .v { font-size: 14px; font-weight: 600; color: var(--ink); white-space: nowrap; }
   .fin-row .v.bad { color: var(--red); }
   .fin-row .v.good { color: var(--green); }
   .fin-note {
@@ -274,61 +276,50 @@
   }
 
   /* ── RESPONSIVE ── */
-  @media (max-width: 700px) {
-    body { padding: 80px 18px 40px; }
+  @media (max-width: 768px) {
+    body { padding: 80px 20px 48px; }
 
     .header {
-      flex-direction: column; gap: 20px; align-items: flex-start;
-      margin-bottom: 36px; padding-bottom: 24px;
+      flex-direction: column; align-items: flex-start;
+      margin-bottom: 32px; padding-bottom: 24px;
     }
     .header-right { text-align: left; }
-    .header-title { font-size: 36px; }
-    .header-sub { font-size: 12px; }
 
-    .moto-grid { grid-template-columns: 1fr; }
-    .moto-card .mc-name { font-size: 17px; }
+    .moto-grid { grid-template-columns: 1fr; gap: 12px; }
     .moto-card .mc-price { font-size: 22px; }
-    .mc-row .k { font-size: 11px; }
-    .mc-row .v { font-size: 12px; }
+
+    .fin-grid { grid-template-columns: 1fr; gap: 12px; }
+
+    .verdict-grid { grid-template-columns: 1fr; gap: 10px; }
+
+    .maint-grid {
+      grid-template-columns: 1fr; gap: 20px;
+    }
+    .maint-col { padding-right: 0; }
+    .maint-col + .maint-col { padding: 0; border-left: none; border-top: 1px solid var(--border); padding-top: 20px; }
+
+    .block { margin-bottom: 28px; }
+    .card { padding: 18px 16px; }
+
+    .recompra-row { flex-direction: column; align-items: flex-start; gap: 8px; padding: 16px 18px; }
+    .recompra-row .rval { font-size: 22px; }
+
+    .saving-pill { font-size: 12px; padding: 6px 12px; }
 
     .compare-name { font-size: 13px; }
-    .compare-val { font-size: 13px; }
-    .saving-pill { font-size: 12px; padding: 6px 13px; }
-
-    .fin-grid { grid-template-columns: 1fr; }
-    .fin-row .k { font-size: 12px; }
-    .fin-row .v { font-size: 13px; }
-
-    .verdict-grid { grid-template-columns: 1fr; }
-    .verdict-item .vtitle { font-size: 14px; }
-    .verdict-item .vtext { font-size: 12px; }
-
-    .recompra-row { flex-direction: column; align-items: flex-start; gap: 6px; padding: 14px 16px; }
-    .recompra-row .rval { font-size: 22px; }
-    .recompra-row .rdesc { font-size: 12px; }
-
-    .maint-grid { grid-template-columns: 1fr; gap: 0; }
-    .maint-col { padding-right: 0; }
-    .maint-col + .maint-col { padding: 20px 0 0 0; border-left: none; border-top: 1px solid var(--border); margin-top: 16px; }
-    .maint-text { font-size: 13px; }
-
-    .card { padding: 18px 16px; }
-    .section-label { font-size: 10px; }
-    .tab-btn { font-size: 12px; padding: 7px 13px; }
-    .note-text { font-size: 12px; }
+    .compare-val { font-size: 14px; }
   }
 
-  @media (max-width: 420px) {
-    .header-title { font-size: 30px; }
-    .header-right .chosen-name { font-size: 18px; }
-    .header-right .chosen-price { font-size: 13px; }
-    .moto-card .mc-price { font-size: 20px; }
-    .recompra-row .rval { font-size: 20px; }
+  @media (max-width: 480px) {
+    body { padding: 72px 16px 40px; }
+    .tab-btn { font-size: 12px; padding: 7px 14px; }
+    .mc-row .k { font-size: 11px; }
+    .mc-row .v { font-size: 12px; }
   }
 </style>
 </head>
 <body>
-<nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;background:rgba(253,250,245,0.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(10,10,10,0.08);">
+<nav style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:64px;background:rgba(253,250,245,0.92);backdrop-filter:blur(20px);border-bottom:1px solid rgba(10,10,10,0.08);">
   <a href="index.html" style="font-family:Poppins,sans-serif;font-weight:500;font-size:15px;letter-spacing:-0.06em;text-transform:uppercase;color:#0A0A0A;text-decoration:none;">Viajes <span style="color:#1B4FFF">SANBO</span></a>
   <a href="index.html" style="font-size:13px;color:#6B6B6B;text-decoration:none;display:flex;align-items:center;gap:6px;">← Volver</a>
 </nav>
@@ -395,7 +386,7 @@
       <div class="winner-ribbon">Elegida</div>
       <div class="mc-tag">Opción 3</div>
       <div class="mc-name">Honda PCX</div>
-      <div class="mc-cc">125 cc · 2026</div>
+      <div class="mc-cc">125 cc · 2025</div>
       <div class="mc-price">3.491,78 €</div>
       <hr class="mc-divider">
       <div class="mc-row"><span class="k">Fin. 36m (entrada 561€)</span><span class="v bad">4.241,45 €</span></div>
@@ -570,7 +561,6 @@
 </div>
 
 <script>
-  // IntersectionObserver — reveal on scroll
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) e.target.style.animationPlayState = 'running';
@@ -581,7 +571,6 @@
     observer.observe(el);
   });
 
-  // Animate bars when card enters view
   const barObserver = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -594,7 +583,6 @@
   }, { threshold: 0.2 });
   document.querySelectorAll('.card').forEach(c => barObserver.observe(c));
 
-  // Tab switching
   function switchTab(id) {
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));

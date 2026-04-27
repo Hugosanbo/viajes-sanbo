@@ -41,7 +41,7 @@
       justify-content: space-between;
       padding: 0 48px;
       height: 64px;
-      background: rgba(253,250,245,0.82);
+      background: rgba(253,250,245,0.92);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
@@ -57,9 +57,7 @@
       text-decoration: none;
     }
 
-    .nav-logo span {
-      color: var(--blue);
-    }
+    .nav-logo span { color: var(--blue); }
 
     .nav-links {
       display: flex;
@@ -131,7 +129,7 @@
 
     .hero-title {
       font-family: 'Poppins', sans-serif;
-      font-size: clamp(52px, 8vw, 96px);
+      font-size: clamp(44px, 8vw, 96px);
       font-weight: 600;
       line-height: 1.0;
       letter-spacing: -0.10em;
@@ -152,7 +150,7 @@
     }
 
     .hero-desc {
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 300;
       color: var(--ink-light);
       line-height: 1.7;
@@ -196,11 +194,10 @@
       border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
       background: var(--cream-dark);
+      flex-wrap: wrap;
     }
 
-    .stat {
-      text-align: center;
-    }
+    .stat { text-align: center; }
 
     .stat-number {
       font-family: 'Playfair Display', serif;
@@ -232,11 +229,12 @@
       align-items: baseline;
       justify-content: space-between;
       margin-bottom: 56px;
+      gap: 16px;
     }
 
     .section-title {
       font-family: 'Poppins', sans-serif;
-      font-size: 40px;
+      font-size: clamp(28px, 5vw, 40px);
       font-weight: 600;
       letter-spacing: -0.09em;
       text-shadow: 0 4px 20px rgba(0,0,0,0.14), 0 2px 4px rgba(0,0,0,0.08);
@@ -252,6 +250,7 @@
       align-items: center;
       gap: 6px;
       transition: gap 0.2s;
+      white-space: nowrap;
     }
 
     .section-link:hover { gap: 10px; }
@@ -259,7 +258,7 @@
     /* ── RUTAS GRID ── */
     .rutas-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 24px;
     }
 
@@ -280,7 +279,7 @@
     }
 
     .ruta-card-image {
-      height: 220px;
+      height: 200px;
       background: var(--blue-pale);
       position: relative;
       overflow: hidden;
@@ -288,15 +287,6 @@
       align-items: center;
       justify-content: center;
     }
-
-    .ruta-card-image img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center;
-      display: block;
-      transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
-    }
-
-    .ruta-card:hover .ruta-card-image img { transform: scale(1.05); }
 
     .ruta-card-image .dest-icon {
       font-size: 64px;
@@ -317,9 +307,7 @@
       border-radius: 100px;
     }
 
-    .ruta-card-body {
-      padding: 24px;
-    }
+    .ruta-card-body { padding: 24px; }
 
     .ruta-card-body h3 {
       font-family: 'Playfair Display', serif;
@@ -339,6 +327,7 @@
     .ruta-card-meta {
       display: flex;
       gap: 16px;
+      flex-wrap: wrap;
     }
 
     .meta-item {
@@ -395,6 +384,7 @@
     .recurso-info p {
       font-size: 13px;
       color: var(--ink-light);
+      line-height: 1.5;
     }
 
     /* ── POSTS ── */
@@ -499,6 +489,8 @@
       align-items: center;
       justify-content: space-between;
       background: var(--cream-dark);
+      flex-wrap: wrap;
+      gap: 16px;
     }
 
     .footer-logo {
@@ -542,17 +534,52 @@
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      nav { padding: 0 24px; }
-      .nav-links { display: none; }
-      .hero { padding: 100px 24px 60px; }
-      .stats-bar { gap: 32px; padding: 32px 24px; flex-wrap: wrap; }
-      section { padding: 64px 24px; }
-      .rutas-grid { grid-template-columns: 1fr; }
-      .recursos-grid { grid-template-columns: 1fr; }
+    @media (max-width: 1024px) {
+      .rutas-grid { grid-template-columns: repeat(2, 1fr); }
       .infografias-grid { grid-template-columns: repeat(2, 1fr); }
-      .section-header { flex-direction: column; gap: 12px; }
-      footer { flex-direction: column; gap: 16px; text-align: center; }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; height: 56px; }
+      .nav-links { display: none; }
+
+      .hero { padding: 90px 20px 60px; min-height: auto; }
+      .hero-circle-1 { width: 300px; height: 300px; top: -50px; right: -80px; }
+      .hero-circle-2 { width: 200px; height: 200px; }
+      .hero-title { font-size: clamp(40px, 11vw, 64px); margin-bottom: 20px; }
+      .hero-desc { font-size: 15px; margin-bottom: 36px; }
+      .hero-cta { padding: 14px 28px; font-size: 13px; }
+
+      .stats-bar { gap: 24px; padding: 32px 20px; }
+      .stat-number { font-size: 28px; }
+      .stat-label { font-size: 11px; }
+
+      section { padding: 56px 20px; }
+      .section-header { flex-direction: column; gap: 10px; margin-bottom: 32px; }
+
+      .rutas-grid { grid-template-columns: 1fr; gap: 16px; }
+      .ruta-card-image { height: 160px; }
+
+      .recursos-grid { grid-template-columns: 1fr; gap: 12px; }
+      .recurso-card { padding: 18px; gap: 14px; }
+      .recurso-icon { width: 40px; height: 40px; font-size: 18px; }
+      .recurso-info h4 { font-size: 14px; }
+      .recurso-info p { font-size: 12px; }
+
+      .infografias-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+
+      .post-item { flex-direction: column; align-items: flex-start; gap: 8px; padding: 20px 0; }
+      .post-item-left { flex-direction: column; gap: 8px; }
+      .post-date { display: none; }
+
+      footer { padding: 32px 20px; flex-direction: column; text-align: center; gap: 12px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title { letter-spacing: -0.06em; }
+      .stats-bar { gap: 16px; }
+      .stat { min-width: 80px; }
+      .infografias-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
@@ -591,8 +618,8 @@
   <!-- STATS -->
   <div class="stats-bar reveal">
     <div class="stat">
-      <div class="stat-number">2</div>
-      <div class="stat-label">Destinos</div>
+      <div class="stat-number">1</div>
+      <div class="stat-label">Destino</div>
     </div>
     <div class="stat">
       <div class="stat-number">1</div>
@@ -603,7 +630,7 @@
       <div class="stat-label">Recursos de moto</div>
     </div>
     <div class="stat">
-      <div class="stat-number">5</div>
+      <div class="stat-number">4</div>
       <div class="stat-label">Recursos totales</div>
     </div>
   </div>
@@ -614,10 +641,9 @@
       <h2 class="section-title">Rutas</h2>
     </div>
     <div class="rutas-grid">
-
       <a href="calas-formentera-secretas.html" class="ruta-card reveal">
         <div class="ruta-card-image" style="background: #E8F4FF;">
-          <img src="formentera.png" alt="Formentera">
+          <span class="dest-icon">🏝️</span>
           <span class="tag">España</span>
         </div>
         <div class="ruta-card-body">
@@ -629,22 +655,6 @@
           </div>
         </div>
       </a>
-
-      <a href="rutas-ibiza.html" class="ruta-card reveal">
-        <div class="ruta-card-image" style="background: #EEF1FF;">
-          <img src="ibiza_2.jpg" alt="Ibiza">
-          <span class="tag">España</span>
-        </div>
-        <div class="ruta-card-body">
-          <h3>Rutas en moto por Ibiza</h3>
-          <p>Rutas de un día desde el puerto de Ibiza. Calas, atardeceres y cultura. Primera ruta: atardecer en Es Vedrà.</p>
-          <div class="ruta-card-meta">
-            <span class="meta-item">🗺️ 1 ruta</span>
-            <span class="meta-item">🌅 Ibiza</span>
-          </div>
-        </div>
-      </a>
-
     </div>
   </section>
 
@@ -714,7 +724,6 @@
   </footer>
 
   <script>
-    // Scroll reveal
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
@@ -725,7 +734,6 @@
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Stats counter animation
     function animateCounter(el, target) {
       let current = 0;
       const step = Math.ceil(target / 30);
@@ -740,10 +748,7 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           document.querySelectorAll('.stat-number').forEach(el => {
-            const val = el.textContent.trim();
-            if (!isNaN(parseInt(val))) {
-              animateCounter(el, parseInt(val));
-            }
+            animateCounter(el, parseInt(el.textContent));
           });
           statsObserver.disconnect();
         }
