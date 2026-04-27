@@ -295,6 +295,84 @@
   .breadcrumb a { color: var(--blue); text-decoration: none; }
   .breadcrumb a:hover { text-decoration: underline; }
   .breadcrumb span { color: var(--border-med); }
+
+  /* PLACE BUTTONS (mapa + imagen) */
+  .parada-btns {
+    display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;
+  }
+  .btn-place {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+    text-decoration: none; border-radius: 99px;
+    padding: 5px 13px; transition: transform 0.15s ease, box-shadow 0.15s ease;
+    white-space: nowrap;
+  }
+  .btn-place:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.10); }
+  .btn-map {
+    background: var(--blue-light); color: var(--blue);
+    border: 1px solid var(--blue-border);
+  }
+  .btn-img {
+    background: var(--cream-dark); color: var(--ink-mid);
+    border: 1px solid var(--border-med);
+  }
+  .btn-place svg { flex-shrink: 0; }
+
+  /* ── RESPONSIVE MÓVIL ── */
+  @media (max-width: 640px) {
+    body { padding: 20px 18px; }
+
+    nav { padding: 0 18px !important; }
+
+    /* Header */
+    .header {
+      flex-direction: column; align-items: flex-start;
+      gap: 16px; margin-bottom: 24px; padding-bottom: 24px;
+    }
+    .header-title { font-size: 30px; }
+    .header-right { text-align: left; margin-left: 0; }
+
+    /* Banner */
+    .banner { height: 220px; margin-bottom: 28px; border-radius: 12px; }
+    .banner-caption { padding: 16px; }
+    .banner-caption-left .bc-name { font-size: 20px; }
+
+    /* Stats */
+    .stats-row {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px; margin-bottom: 28px;
+    }
+    .stat-num { font-size: 22px; }
+
+    /* Card padding */
+    .card { padding: 16px 16px; }
+
+    /* Paradas */
+    .parada { gap: 12px; padding: 18px 0; }
+    .parada.featured { padding: 16px 14px; }
+    .parada-num { font-size: 18px; min-width: 28px; }
+    .parada-name { font-size: 14px; }
+    .parada-top { flex-direction: column; align-items: flex-start; gap: 6px; }
+
+    /* Extras grid */
+    .extras-grid { grid-template-columns: 1fr; }
+
+    /* Section label */
+    .section-label { font-size: 10px; }
+
+    /* Block spacing */
+    .block { margin-bottom: 32px; }
+
+    /* Footer */
+    .footer { flex-direction: column; gap: 6px; align-items: flex-start; }
+
+    /* Breadcrumb */
+    .breadcrumb { margin-bottom: 14px; }
+
+    /* Botones parada */
+    .parada-btns { gap: 6px; margin-top: 10px; }
+    .btn-place { font-size: 10px; padding: 4px 11px; }
+  }
 </style>
 </head>
 <body>
@@ -390,6 +468,16 @@
             <span class="meta-pill pill-muted">30–45 min</span>
           </div>
           <div class="parada-nota">Si al salir del ferry tienes tiempo y energía, te acercas. Si no, directo a Las Dalias sin pena. No es un must.</div>
+          <div class="parada-btns">
+            <a href="https://www.google.com/maps/search/Santa+Eul%C3%A0lia+des+Riu+Ibiza" target="_blank" class="btn-place btn-map">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Ver en mapa
+            </a>
+            <a href="https://www.google.com/images?q=Santa+Eul%C3%A0lia+des+Riu+Ibiza" target="_blank" class="btn-place btn-img">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Ver imágenes
+            </a>
+          </div>
         </div>
       </div>
 
@@ -408,6 +496,16 @@
             <span class="meta-pill pill-muted">1h</span>
           </div>
           <div class="parada-nota">Mercado hippie. Comprueba antes si hay mercado ese día — principalmente sábados. Sin mercado pierde bastante interés.</div>
+          <div class="parada-btns">
+            <a href="https://www.google.com/maps/search/Las+Dalias+mercado+hippie+Ibiza" target="_blank" class="btn-place btn-map">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Ver en mapa
+            </a>
+            <a href="https://www.google.com/images?q=Las+Dalias+mercado+hippie+Ibiza" target="_blank" class="btn-place btn-img">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Ver imágenes
+            </a>
+          </div>
         </div>
       </div>
 
@@ -423,6 +521,16 @@
             <span class="meta-pill pill-muted">45 min – 1h</span>
           </div>
           <div class="parada-nota">De paso después de Las Dalias. Acceso fácil, no espectacular, pero el encadenamiento geográfico tiene sentido.</div>
+          <div class="parada-btns">
+            <a href="https://www.google.com/maps/search/Cala+d%27en+Serra+Ibiza" target="_blank" class="btn-place btn-map">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Ver en mapa
+            </a>
+            <a href="https://www.google.com/images?q=Cala+d%27en+Serra+Ibiza" target="_blank" class="btn-place btn-img">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Ver imágenes
+            </a>
+          </div>
         </div>
       </div>
 
@@ -441,6 +549,16 @@
             <span class="meta-pill pill-muted">20–30 min</span>
           </div>
           <div class="parada-nota">Muy masificada en verano — parada rápida para verla, no para quedarse. Con moto el aparcamiento no es problema.</div>
+          <div class="parada-btns">
+            <a href="https://www.google.com/maps/search/Cala+Conta+Ibiza" target="_blank" class="btn-place btn-map">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Ver en mapa
+            </a>
+            <a href="https://www.google.com/images?q=Cala+Conta+Ibiza" target="_blank" class="btn-place btn-img">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Ver imágenes
+            </a>
+          </div>
         </div>
       </div>
 
@@ -459,6 +577,16 @@
             <span class="meta-pill pill-muted">1h – 1h 30min</span>
           </div>
           <div class="parada-nota">La joya de la ruta. Acceso difícil = menos gente. Reserva tiempo y energía para esto. Va después de Conta por lógica geográfica.</div>
+          <div class="parada-btns">
+            <a href="https://www.google.com/maps/search/Cala+Llentrisca+Ibiza" target="_blank" class="btn-place btn-map">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Ver en mapa
+            </a>
+            <a href="https://www.google.com/images?q=Cala+Llentrisca+Ibiza" target="_blank" class="btn-place btn-img">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Ver imágenes
+            </a>
+          </div>
         </div>
       </div>
 
@@ -477,6 +605,16 @@
             <span class="meta-pill pill-muted">1h 30min – 2h</span>
           </div>
           <div class="parada-nota">El objetivo de toda la ruta. Sube a la Torre des Savinar para tener la mejor vista de Es Vedrà. Llega con margen — el camino a la torre es a pie y tarda unos 20 minutos.</div>
+          <div class="parada-btns">
+            <a href="https://www.google.com/maps/search/Torre+des+Savinar+Es+Vedr%C3%A0+Ibiza" target="_blank" class="btn-place btn-map">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Ver en mapa
+            </a>
+            <a href="https://www.google.com/images?q=Es+Vedr%C3%A0+Torre+des+Savinar+Ibiza" target="_blank" class="btn-place btn-img">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Ver imágenes
+            </a>
+          </div>
           <div class="parada-highlight">→ Cala d'Hort está justo al lado. Si llegas con tiempo, date un baño antes de subir a la torre.</div>
         </div>
       </div>
@@ -493,6 +631,16 @@
             <span class="meta-pill pill-muted">Noche</span>
           </div>
           <div class="parada-nota">Casco histórico, murallas, cenar por ahí. Terminas aquí antes del ferry de vuelta a Formentera.</div>
+          <div class="parada-btns">
+            <a href="https://www.google.com/maps/search/Dalt+Vila+Ibiza" target="_blank" class="btn-place btn-map">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Ver en mapa
+            </a>
+            <a href="https://www.google.com/images?q=Dalt+Vila+Ibiza" target="_blank" class="btn-place btn-img">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              Ver imágenes
+            </a>
+          </div>
         </div>
       </div>
 
